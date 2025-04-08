@@ -1,0 +1,30 @@
+Folio: 1979.1
+N° de Empleado: 97214701
+Nombre Empleado: Juan Adrian Rodirguez Felix
+Fecha: 07/10/2021
+
+
+a5c693b8db2b2153ed2b16115fe4aea7	Scrips\INSERT_retbeneficiario.sql
+0f6c8feeabfaa6c3343a8bb753786aa0	Scrips\REVERS_retbeneficiario.sql
+********************************************************************************
+
+Folio: 1979.1
+N° de Empleado: 97214701
+Nombre Empleado: Juan Adrián Rodriguez Felix
+Fecha: 30/09/2021
+
+
+550a9c16f66daf106c2c9fe8babbbed7	migracionderetirostotales
+********************************************************************************
+
+Folio: 1979.1
+N° de Empleado: 97214701
+Nombre Empleado: Juan Adrian Rodriguez Felix
+Fecha: 19/09/2021
+
+
+c01e641e3580dfffda511913963ed8f6	makefile
+b1a7dcea108dda3ac1e007cb35c0f4f5	migracionderetirostotales
+78643291147ba98309f06f7e83ff4f1a	Scrips\fn_afop_marcarcuenta_retiros.sql
+0f730d2d143e36202e6ef0eeb2621b9b	Scrips\fn_reg_ctr_benef.sql
+85bacc4b603b01469d787744b7362381	Scrips\marca_cuenta_retiros.sql
