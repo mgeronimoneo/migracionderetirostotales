@@ -27,14 +27,14 @@ short CInfoRecServiciosTimbrado::ReplicarRecServiciosTimbrado(int iFolioServicio
 
 	objFG.fnArcGrabarLogx(RUTA_LOG,"***********************************ENTRA RECSERVICIOS TIMBRADO***************************************");
 	memset(cTexto,0,sizeof(cTexto));
-	snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
+	snprintf(cTexto, sizeof(cTexto), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
 	objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 	//OBTENCIÓN DE LA INFORMACION QUE SE VA A MIGRAR DE RECSERVICIOS AFORE TIMBRADO
 	memset(cSql,0,sizeof(cSql));
 	memset(cTexto,0,sizeof(cTexto));
 
-	snprintf(cSql, strnlen(cSql, sizeof(cSql)), "SELECT  TRIM(COALESCE(nss,' '))::Char(11) AS nss, "
+	snprintf(cSql, sizeof(cSql), "SELECT  TRIM(COALESCE(nss,' '))::Char(11) AS nss, "
 						  "TRIM(COALESCE(rfc,' '))::Char(13) AS rfc, "
 						       "COALESCE(folioservicio,0) AS folioservicio, "
 						  "TRIM(COALESCE(tiposervicio,' '))::Char(1) AS tiposervicio, "
@@ -62,7 +62,7 @@ short CInfoRecServiciosTimbrado::ReplicarRecServiciosTimbrado(int iFolioServicio
 			if (objRecSerTimbrado.iFolioservicio == 0)
 			{
 				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+				snprintf(cTexto, sizeof(cTexto), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 				objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 			}
@@ -71,7 +71,7 @@ short CInfoRecServiciosTimbrado::ReplicarRecServiciosTimbrado(int iFolioServicio
 				memset(cSqlAux,0, sizeof(cSqlAux));
 				memset(cTexto,0, sizeof(cTexto));
 
-				snprintf(cSqlAux, strnlen(cSqlAux, sizeof(cSqlAux)), "EXECUTE FUNCTION fn_guardarrecserviciostimbradoreplicart('%s','%s','%s',%i,'%s',%i);",
+				snprintf(cSqlAux, sizeof(cSqlAux), "EXECUTE FUNCTION fn_guardarrecserviciostimbradoreplicart('%s','%s','%s',%i,'%s',%i);",
 													cNss,
 													cRfc,
 													cFechaAlta,													
@@ -85,18 +85,18 @@ short CInfoRecServiciosTimbrado::ReplicarRecServiciosTimbrado(int iFolioServicio
 				if (iRespuesta == 1)
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 				}
 				else
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "QUERY: [%s]", cSqlAux);
+					snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSqlAux);
 					
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
@@ -106,14 +106,14 @@ short CInfoRecServiciosTimbrado::ReplicarRecServiciosTimbrado(int iFolioServicio
 		else
 		{
 			memset(cTexto, 0, sizeof(cTexto));
-			snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+			snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 		}
 	}
 	else
 	{
 		memset(cTexto, 0, sizeof(cTexto));
-		snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+		snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 	}
 }	

@@ -41,14 +41,14 @@ short CInfoPenDetOp70::ReplicarDetalleOp70(int iFolioServicio,C_ODBC* odbcInfxSa
 
 	objFG.fnArcGrabarLogx(RUTA_LOG,"***********************************ENTRA DETALLE OPERACION 70***************************************");
 	memset(cTexto,0,sizeof(cTexto));
-	snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
+	snprintf(cTexto, sizeof(cTexto), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
 	objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);	
 							
 	//OBTENCIÓN DE LA INFORMACION QUE SE VA A MIGRAR DE PENDETALLE70
 	memset(cSql,0,sizeof(cSql));
 	memset(cTexto,0,sizeof(cTexto));
 	
-	snprintf(cSql,  strnlen(cSql, sizeof(cSql)), "SELECT COALESCE(folioenvio, 0)::integer AS folioenvio, "
+	snprintf(cSql,  sizeof(cSql), "SELECT COALESCE(folioenvio, 0)::integer AS folioenvio, "
 						  "COALESCE(idtiponotifica, 0)::smallint AS idtiponotifica, "
 						  "TRIM(COALESCE(nss, ''))::Char(11) AS nss, "
 						  "TRIM(COALESCE(curp,''))::Char(18) AS curp, "
@@ -120,7 +120,7 @@ short CInfoPenDetOp70::ReplicarDetalleOp70(int iFolioServicio,C_ODBC* odbcInfxSa
 			memmove(cCvePension,  objDet70.cvepension, sizeof(3));		
 
 			//memcpy(cFechaInicioPen, objDet70.fechainipen,10);
-			snprintf(cFechaInicioPen, strnlen(cFechaInicioPen, sizeof(cFechaInicioPen)), "%c%c%c%c-%c%c-%c%c",
+			snprintf(cFechaInicioPen, sizeof(cFechaInicioPen), "%c%c%c%c-%c%c-%c%c",
 					objDet70.fechainipen[6], 
 					objDet70.fechainipen[7],
 					objDet70.fechainipen[8], 
@@ -131,7 +131,7 @@ short CInfoPenDetOp70::ReplicarDetalleOp70(int iFolioServicio,C_ODBC* odbcInfxSa
 					objDet70.fechainipen[4]);		
 
 			//memcpy(cFechaPrimerPago, objDet70.fechaprimerpago,10);
-			snprintf(cFechaPrimerPago, strnlen(cFechaPrimerPago, sizeof(cFechaPrimerPago)), "%c%c%c%c-%c%c-%c%c",
+			snprintf(cFechaPrimerPago, sizeof(cFechaPrimerPago), "%c%c%c%c-%c%c-%c%c",
 					objDet70.fechaprimerpago[6], 
 					objDet70.fechaprimerpago[7],
 					objDet70.fechaprimerpago[8], 
@@ -142,7 +142,7 @@ short CInfoPenDetOp70::ReplicarDetalleOp70(int iFolioServicio,C_ODBC* odbcInfxSa
 					objDet70.fechaprimerpago[4]);
 
 			//memcpy(cFechaUltimoPago, objDet70.fechaultimopago,10);
-			snprintf(cFechaUltimoPago,  strnlen(cFechaUltimoPago, sizeof(cFechaUltimoPago)), "%c%c%c%c-%c%c-%c%c",
+			snprintf(cFechaUltimoPago,  sizeof(cFechaUltimoPago), "%c%c%c%c-%c%c-%c%c",
 					objDet70.fechaultimopago[6], 
 					objDet70.fechaultimopago[7],
 					objDet70.fechaultimopago[8], 
@@ -153,7 +153,7 @@ short CInfoPenDetOp70::ReplicarDetalleOp70(int iFolioServicio,C_ODBC* odbcInfxSa
 					objDet70.fechaultimopago[4]);
 
 			//memcpy(cFechaAgotamiento, objDet70.fechaagotamiento,10);
-			snprintf(cFechaAgotamiento, strnlen(cFechaAgotamiento, sizeof(cFechaAgotamiento)), "%c%c%c%c-%c%c-%c%c",
+			snprintf(cFechaAgotamiento, sizeof(cFechaAgotamiento), "%c%c%c%c-%c%c-%c%c",
 					objDet70.fechaagotamiento[6], 
 					objDet70.fechaagotamiento[7],
 					objDet70.fechaagotamiento[8], 
@@ -164,7 +164,7 @@ short CInfoPenDetOp70::ReplicarDetalleOp70(int iFolioServicio,C_ODBC* odbcInfxSa
 					objDet70.fechaagotamiento[4]);
 
 			//memcpy(cFechaFallecimiento, objDet70.fechafallecimiento,10);
-			snprintf(cFechaFallecimiento, strnlen(cFechaFallecimiento, sizeof(cFechaFallecimiento)), "%c%c%c%c-%c%c-%c%c",
+			snprintf(cFechaFallecimiento, sizeof(cFechaFallecimiento), "%c%c%c%c-%c%c-%c%c",
 					objDet70.fechafallecimiento[6], 
 					objDet70.fechafallecimiento[7],
 					objDet70.fechafallecimiento[8], 
@@ -177,7 +177,7 @@ short CInfoPenDetOp70::ReplicarDetalleOp70(int iFolioServicio,C_ODBC* odbcInfxSa
 			memmove(cDiagOperacion, objDet70.diagoperacion, sizeof(2));
 
 			//memcpy(cFechaCarga, objDet70.fechacarga,10);
-			snprintf(cFechaCarga, strnlen(cFechaCarga, sizeof(cFechaCarga)), "%c%c%c%c-%c%c-%c%c",
+			snprintf(cFechaCarga, sizeof(cFechaCarga), "%c%c%c%c-%c%c-%c%c",
 					objDet70.fechacarga[6], 
 					objDet70.fechacarga[7],
 					objDet70.fechacarga[8], 
@@ -193,7 +193,7 @@ short CInfoPenDetOp70::ReplicarDetalleOp70(int iFolioServicio,C_ODBC* odbcInfxSa
 			memset(cSqlAux,0, sizeof(cSqlAux));
 			memset(cTexto,0, sizeof(cTexto));
 			
-			snprintf(cSqlAux, strnlen(cSqlAux, sizeof(cSqlAux)), "EXECUTE FUNCTION fn_guardarpendetalleop70pmgimssreplica(%i,%i,'%s','%s','%s',%i,'%s','%s','%s','%s','%s',%i,'%s','%s',%f,%f,%f,%f,%i,%f,%f,%f,%f,%i,%f,'%s','%s','%s','%s',%i,%i,'%s','%s','%s',%i,%i);",
+			snprintf(cSqlAux, sizeof(cSqlAux), "EXECUTE FUNCTION fn_guardarpendetalleop70pmgimssreplica(%i,%i,'%s','%s','%s',%i,'%s','%s','%s','%s','%s',%i,'%s','%s',%f,%f,%f,%f,%i,%f,%f,%f,%f,%i,%f,'%s','%s','%s','%s',%i,%i,'%s','%s','%s',%i,%i);",
 																objDet70.folioenvio,
 																objDet70.idtiponotifica,
 																cNss,
@@ -237,18 +237,18 @@ short CInfoPenDetOp70::ReplicarDetalleOp70(int iFolioServicio,C_ODBC* odbcInfxSa
 			if (iRespuesta == 1)
 			{
 				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+				snprintf(cTexto, sizeof(cTexto), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 				objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 			}
 			else
 			{
 				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+				snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "QUERY: [%s]", cSqlAux);
+				snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSqlAux);
 				
 				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 				objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
@@ -257,14 +257,14 @@ short CInfoPenDetOp70::ReplicarDetalleOp70(int iFolioServicio,C_ODBC* odbcInfxSa
 		else
 		{
 			memset(cTexto, 0, sizeof(cTexto));
-			snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+			snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 		}		
 	}
 	else
 	{
 		memset(cTexto, 0, sizeof(cTexto));
-		snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+		snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);		
 	}
 }

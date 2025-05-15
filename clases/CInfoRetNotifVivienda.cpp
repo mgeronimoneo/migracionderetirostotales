@@ -54,14 +54,14 @@ short CInfoRetNotifVivienda::ReplicarRetNotifVivienda(int iFolioServicio,C_ODBC*
 
 	objFG.fnArcGrabarLogx(RUTA_LOG,"***********************************ENTRA RET NOTIFICA VIVIENDA***************************************");
 	memset(cTexto,0,sizeof(cTexto));
-	snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
+	snprintf(cTexto, sizeof(cTexto), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
 	objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 	//OBTENCIÓN DE LA INFORMACION QUE SE VA A MIGRAR DE RET CONSTANCIA RETENCION
 	memset(cSql,0,sizeof(cSql));
 	memset(cTexto,0,sizeof(cTexto));
 
-	snprintf(cSql, strnlen(cSql, sizeof(cSql)), "SELECT  TRIM(COALESCE(cnss,''))::char(11) AS cnss, "
+	snprintf(cSql, sizeof(cSql), "SELECT  TRIM(COALESCE(cnss,''))::char(11) AS cnss, "
 						       "COALESCE(bfoliocarga,0) AS bfoliocarga, "
 						       "COALESCE(ifoliosolicitud,0) AS ifoliosolicitud, "
 						       "COALESCE(bconsecutivo,0) AS bconsecutivo, "
@@ -165,7 +165,7 @@ short CInfoRetNotifVivienda::ReplicarRetNotifVivienda(int iFolioServicio,C_ODBC*
 			//memcpy(cObservaciones, objRetNotViv.cObservaciones, 127);
 
 			//memcpy(cFechacaptura, objRetNotViv.cFechacaptura, 10);			
-			snprintf(cFechacaptura, strnlen(cFechacaptura, sizeof(cFechacaptura)), "%c%c,%c%c,%c%c%c%c",
+			snprintf(cFechacaptura, sizeof(cFechacaptura), "%c%c,%c%c,%c%c%c%c",
 					objRetNotViv.cFechacaptura[5], 
 					objRetNotViv.cFechacaptura[6],
 					objRetNotViv.cFechacaptura[8], 
@@ -195,7 +195,7 @@ short CInfoRetNotifVivienda::ReplicarRetNotifVivienda(int iFolioServicio,C_ODBC*
 			if (objRetNotViv.iFoliosolicitud == 0)
 			{
 				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+				snprintf(cTexto, sizeof(cTexto), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 				objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 			}
@@ -204,7 +204,7 @@ short CInfoRetNotifVivienda::ReplicarRetNotifVivienda(int iFolioServicio,C_ODBC*
 				memset(cSqlAux,0, sizeof(cSqlAux));
 				memset(cTexto,0, sizeof(cTexto));
 
-				snprintf(cSqlAux, strnlen(cSqlAux, sizeof(cSqlAux)), "EXECUTE FUNCTION fn_guardarretiroamparopension_viviendareplicart(%i,'%s',%i,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%i,'%s','%s','%s','%s','%s',%i,%i,'%s','%s','%s','%s','%s','%s');",
+				snprintf(cSqlAux, sizeof(cSqlAux), "EXECUTE FUNCTION fn_guardarretiroamparopension_viviendareplicart(%i,'%s',%i,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%i,'%s','%s','%s','%s','%s',%i,%i,'%s','%s','%s','%s','%s','%s');",
 													objRetNotViv.iFoliocarga,
 													cNss,
 													objRetNotViv.iConsecutivo,
@@ -238,18 +238,18 @@ short CInfoRetNotifVivienda::ReplicarRetNotifVivienda(int iFolioServicio,C_ODBC*
 				if (iRespuesta == 1)
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 				}
 				else
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);			
 
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "QUERY: [%s]", cSqlAux);					
+					snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSqlAux);					
 					
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
@@ -259,14 +259,14 @@ short CInfoRetNotifVivienda::ReplicarRetNotifVivienda(int iFolioServicio,C_ODBC*
 		else
 		{
 			memset(cTexto, 0, sizeof(cTexto));
-			snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+			snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 		}
 	}
 	else
 	{
 		memset(cTexto, 0, sizeof(cTexto));
-		snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+		snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 	}
 }

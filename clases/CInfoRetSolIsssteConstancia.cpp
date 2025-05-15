@@ -25,14 +25,14 @@ short CInfoRetSolIsssteConstancia::ReplicarRetSolIsssteConstancia(int iFolioServ
 
 	objFG.fnArcGrabarLogx(RUTA_LOG,"***********************************ENTRA ISSSTE CONSTANCIA***************************************");
 	memset(cTexto,0,sizeof(cTexto));
-	snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
+	snprintf(cTexto, sizeof(cTexto), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
 	objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 	//OBTENCIÓN DE LA INFORMACION QUE SE VA A MIGRAR DE RET SOL ISSSTE CONSTANCIA
 	memset(cSql,0,sizeof(cSql));
 	memset(cTexto,0,sizeof(cTexto));
 
-	snprintf(cSql, strnlen(cSql, sizeof(cSql)), "SELECT COALESCE(foliosolicitud,0) AS foliosolicitud, "
+	snprintf(cSql, sizeof(cSql), "SELECT COALESCE(foliosolicitud,0) AS foliosolicitud, "
 					"TRIM(COALESCE(nss,' '))::char(11) AS nss, "						     
 					     "COALESCE(consecutivo,0) AS consecutivo,"
 					 "TRIM(COALESCE(constancia,' '))::char(1) AS constancia "
@@ -56,13 +56,13 @@ short CInfoRetSolIsssteConstancia::ReplicarRetSolIsssteConstancia(int iFolioServ
 			if (objRetConstancia.iFoliosolicitud == 0 )
 			{
 				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+				snprintf(cTexto, sizeof(cTexto), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 				objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 			}
 			else
 			{
-					snprintf(cSqlAux, strnlen(cSqlAux, sizeof(cSqlAux)), "EXECUTE FUNCTION fn_guardarret_sol_issste_constanciareplicart('%s',%i,'%s');",
+					snprintf(cSqlAux, sizeof(cSqlAux), "EXECUTE FUNCTION fn_guardarret_sol_issste_constanciareplicart('%s',%i,'%s');",
 												cNss,
 												objRetConstancia.iConsecutivo,
 												cConstancia
@@ -73,18 +73,18 @@ short CInfoRetSolIsssteConstancia::ReplicarRetSolIsssteConstancia(int iFolioServ
 					if (iRespuesta == 1)
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 				}
 				else
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "QUERY: [%s]", cSqlAux);
+					snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSqlAux);
 					
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
@@ -94,14 +94,14 @@ short CInfoRetSolIsssteConstancia::ReplicarRetSolIsssteConstancia(int iFolioServ
 		else
 		{
 			memset(cTexto, 0, sizeof(cTexto));
-			snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+			snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 		}
 	}
 	else
 	{
 		memset(cTexto, 0, sizeof(cTexto));
-		snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+		snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 	}
 }

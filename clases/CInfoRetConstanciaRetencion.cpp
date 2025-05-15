@@ -32,14 +32,14 @@ short CInfoRetConstanciaRetencion::ReplicarRetConstanciaRetencion(int iFolioServ
 
 	objFG.fnArcGrabarLogx(RUTA_LOG,"***********************************ENTRA RET CONSTANCIA RETENCION***************************************");
 	memset(cTexto,0,sizeof(cTexto));
-	snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
+	snprintf(cTexto, sizeof(cTexto), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
 	objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 	//OBTENCIÓN DE LA INFORMACION QUE SE VA A MIGRAR DE RET CONSTANCIA RETENCION
 	memset(cSql,0,sizeof(cSql));
 	memset(cTexto,0,sizeof(cTexto));
 
-	snprintf(cSql, strnlen(cSql, sizeof(cSql)), "SELECT TRIM(COALESCE(fechaalta,''))::char(10) AS fechaalta, "
+	snprintf(cSql, sizeof(cSql), "SELECT TRIM(COALESCE(fechaalta,''))::char(10) AS fechaalta, "
 					"COALESCE(foliosolicitud,0) AS foliosolicitud, "
 				   "COALESCE(consecutivo,0) AS consecutivo, "
  			  "TRIM(COALESCE(nss,''))::char(11) AS nss, "
@@ -76,7 +76,7 @@ short CInfoRetConstanciaRetencion::ReplicarRetConstanciaRetencion(int iFolioServ
 			if (objRetencion.iFolioSolicitud == 0)
 			{
 				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+				snprintf(cTexto, sizeof(cTexto), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 				objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 			}
@@ -85,7 +85,7 @@ short CInfoRetConstanciaRetencion::ReplicarRetConstanciaRetencion(int iFolioServ
 				memset(cSqlAux,0, sizeof(cSqlAux));
 				memset(cTexto,0, sizeof(cTexto));
 
-				snprintf(cSqlAux, strnlen(cSqlAux, sizeof(cSqlAux)), "EXECUTE FUNCTION fn_afop_guardar_ret_constancia_retencion(%i,%ld,'%s','%s','%s','%s','%s',%i,%i,%i);",
+				snprintf(cSqlAux, sizeof(cSqlAux), "EXECUTE FUNCTION fn_afop_guardar_ret_constancia_retencion(%i,%ld,'%s','%s','%s','%s','%s',%i,%i,%i);",
 													objRetencion.iFolioSolicitud,
 													objRetencion.iConsecutivo,
 													cNss,
@@ -103,14 +103,14 @@ short CInfoRetConstanciaRetencion::ReplicarRetConstanciaRetencion(int iFolioServ
 				if (iRespuesta == 1)
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");				
 
 					memset(cTextoUpdate,0,sizeof(cTextoUpdate));
 					memset(cSqlUpdate,0,sizeof(cSqlUpdate));
 
-					snprintf(cFechaAlta, strnlen(cFechaAlta, sizeof(cFechaAlta)), "%c%c-%c%c-%c%c%c%c",
+					snprintf(cFechaAlta, sizeof(cFechaAlta), "%c%c-%c%c-%c%c%c%c",
 					objRetencion.cFechaAlta[5],
 					objRetencion.cFechaAlta[6],
 					objRetencion.cFechaAlta[8],
@@ -121,11 +121,11 @@ short CInfoRetConstanciaRetencion::ReplicarRetConstanciaRetencion(int iFolioServ
 					objRetencion.cFechaAlta[3]
 					);	
 
-					snprintf(cSqlUpdate, strnlen(cSqlUpdate, sizeof(cSqlUpdate)), "UPDATE ret_constancia_retencion SET fechaalta = '%s' WHERE folio_solicitud = '%i' AND consecutivo = '%ld'", cFechaAlta,iFolioServicio,objRetencion.iConsecutivo);
+					snprintf(cSqlUpdate, sizeof(cSqlUpdate), "UPDATE ret_constancia_retencion SET fechaalta = '%s' WHERE folio_solicitud = '%i' AND consecutivo = '%ld'", cFechaAlta,iFolioServicio,objRetencion.iConsecutivo);
 					objFG.fnSqlEjecutarScrip(odbcInfxSafreaf, cSqlUpdate, cTextoUpdate);
 
 					memset(cTextoUpdate, 0, sizeof(cTextoUpdate));
-					snprintf(cTextoUpdate, strnlen(cTextoUpdate, sizeof(cTextoUpdate)), "ACTUALIZACION DE LA FECHA: [%s]", cSqlUpdate);
+					snprintf(cTextoUpdate, sizeof(cTextoUpdate), "ACTUALIZACION DE LA FECHA: [%s]", cSqlUpdate);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTextoUpdate);
 
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");					
@@ -133,11 +133,11 @@ short CInfoRetConstanciaRetencion::ReplicarRetConstanciaRetencion(int iFolioServ
 				else
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "QUERY: [%s]", cSqlAux);
+					snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSqlAux);
 					
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
@@ -147,14 +147,14 @@ short CInfoRetConstanciaRetencion::ReplicarRetConstanciaRetencion(int iFolioServ
 		else
 		{
 			memset(cTexto, 0, sizeof(cTexto));
-			snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+			snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 		}
 	}
 	else
 	{
 		memset(cTexto, 0, sizeof(cTexto));
-		snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+		snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 	}
 }

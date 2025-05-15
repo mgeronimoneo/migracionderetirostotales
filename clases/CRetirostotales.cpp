@@ -94,7 +94,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 	/*************************************SE OBTIENE LA INFORMACION GENERAL************************************************/
 	/**********************************************************************************************************************/
 	memset(cSql, 0, sizeof(cSql));
-	snprintf(cSql, strnlen(cSql, sizeof(cSql)), "SELECT COALESCE(folioservicio,0) AS folioservicio, "
+	snprintf(cSql, sizeof(cSql), "SELECT COALESCE(folioservicio,0) AS folioservicio, "
 						 "COALESCE(curp,' ') AS curp, "
 						 "COALESCE(nss,' ') AS nss, "
 						 "COALESCE(foliosolicitud, 0) AS foliosolicitud, "
@@ -179,7 +179,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 			memmove(cSellotrabajador, objInfoGen.cSellotrabajador, sizeof(14));
 
 			memset(cTexto, 0, sizeof(cTexto));
-			snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "FOLIO QUE SE ESTA PROCESANDO -->[%i]",iFolioServicio);
+			snprintf(cTexto, sizeof(cTexto), "FOLIO QUE SE ESTA PROCESANDO -->[%i]",iFolioServicio);
 			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 			memset(cSql,0,sizeof(cSql));
@@ -187,13 +187,13 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 
 
 
-				snprintf(cSql, strnlen(cSql, sizeof(cSql)), "select fnrettotvalidarfolioservicio from fnrettotvalidarfolioservicio('%s',%i,%i);", cTipoOperacion, objInfoGen.iFolioServicio,objInfoGen.iCodigoMotivo);
+				snprintf(cSql, sizeof(cSql), "select fnrettotvalidarfolioservicio from fnrettotvalidarfolioservicio('%s',%i,%i);", cTipoOperacion, objInfoGen.iFolioServicio,objInfoGen.iCodigoMotivo);
 				objFG.fnSqlConsultarNumero(odbcServiciosAfore,cSql,iRespuesta, cTexto);
 
 				iExisteBD = iRespuesta;
 
 				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "RESPUESTA DE LA FUNCION PARA EL FOLIO-->[%i] ---> [%i]",iFolioServicio,iExisteBD);
+				snprintf(cTexto, sizeof(cTexto), "RESPUESTA DE LA FUNCION PARA EL FOLIO-->[%i] ---> [%i]",iFolioServicio,iExisteBD);
 				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 			
@@ -209,13 +209,13 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 					iExisteBD = -1;
 					memset(cSql,0,sizeof(cSql));
 					memset(cTexto,0,sizeof(cTexto));
-					snprintf(cSql, strnlen(cSql, sizeof(cSql)), "select fnvalidarvigenciacus from fnvalidarvigenciacus('%s',%i);",objInfoGen.cCurp, objInfoGen.iFolioServicio);
+					snprintf(cSql, sizeof(cSql), "select fnvalidarvigenciacus from fnvalidarvigenciacus('%s',%i);",objInfoGen.cCurp, objInfoGen.iFolioServicio);
 					objFG.fnSqlConsultarNumero(odbcAforeGlobal,cSql,iRespuesta, cTexto);
 
 					iExisteBD = iRespuesta;
 
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "RESPUESTA DE LA FUNCION \"FNVALIDARVIGENCIACUS\" PARA EL FOLIO-->[%i] ---> [%i]",iFolioServicio,iExisteBD);
+					snprintf(cTexto, sizeof(cTexto), "RESPUESTA DE LA FUNCION \"FNVALIDARVIGENCIACUS\" PARA EL FOLIO-->[%i] ---> [%i]",iFolioServicio,iExisteBD);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 				}
 
@@ -226,31 +226,31 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 
 					memset(cSql,0,sizeof(cSql));
 					memset(cTexto,0,sizeof(cTexto));
-					snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_obten_ret_consecutivo();");
+					snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_obten_ret_consecutivo();");
 					objFG.fnSqlConsultarNumero(odbcInfxSafreaf, cSql, iRespuesta, cTexto);
 
 					iConsecutivo = 0;
 					iConsecutivo = iRespuesta;
 
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "CONSECUTIVO [%i] PARA EL FOLIO [%i] ",iConsecutivo,iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "CONSECUTIVO [%i] PARA EL FOLIO [%i] ",iConsecutivo,iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 					if (iConsecutivo == 0)
 					{
 						memset(cTexto, 0, sizeof(cTexto));
-						snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al ejecutar al obtener el consecutivo...", __FILE__,__FUNCTION__);
+						snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al ejecutar al obtener el consecutivo...", __FILE__,__FUNCTION__);
 						objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					}
 					else
 					{
 						memset(cSql, 0, sizeof(cSql));
-						snprintf(cSql, strnlen(cSql, sizeof(cSql)), "select fnrettotactualizaconsecutivoserv from fnrettotactualizaconsecutivoserv(%i, '%s', %i, %i);", iConsecutivo, cTipoOperacion, iFolioServicio,objInfoGen.iCodigoMotivo);
+						snprintf(cSql, sizeof(cSql), "select fnrettotactualizaconsecutivoserv from fnrettotactualizaconsecutivoserv(%i, '%s', %i, %i);", iConsecutivo, cTipoOperacion, iFolioServicio,objInfoGen.iCodigoMotivo);
 						objFG.fnSqlConsultarNumero(odbcServiciosAfore, cSql, iRespuesta, cTexto);
 
 						memset(cSql, 0, sizeof(cSql));
 						//sprintf(cSql, "update recserviciosafore set consecutivomarca = %i where nss = '%s' and folioservicio = %i;", iConsecutivo, cNss, iFolioServicio);
-						snprintf(cSql, strnlen(cSql, sizeof(cSql)), "select * from fnrettotactualizarecservicios(%i,%i,%i,'%s');", 1,iConsecutivo, iFolioServicio,cNss);
+						snprintf(cSql, sizeof(cSql), "select * from fnrettotactualizarecservicios(%i,%i,%i,'%s');", 1,iConsecutivo, iFolioServicio,cNss);
 						objFG.fnSqlConsultarTexto(odbcAforeGlobal,(char*)cSql, (char*)cOutTexto);
 
 						//objFG.fnArcGrabarLogx(RUTA_LOG, cSql);
@@ -290,53 +290,53 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 							if(objInfoGen.iCodigoMotivo == 1029)
 							{
 								memset(cTipoRetiro, 0, sizeof(cTipoRetiro));
-								snprintf(cTipoRetiro, strnlen(cTipoRetiro, sizeof(cTipoRetiro)), "D");
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
+								snprintf(cTipoRetiro, sizeof(cTipoRetiro), "D");
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
 								iCodigoMarca = 820;
 							}
 							else if(objInfoGen.iCodigoMotivo == 1030)
 							{
 								memset(cTipoRetiro, 0, sizeof(cTipoRetiro));
-								snprintf(cTipoRetiro, strnlen(cTipoRetiro, sizeof(cTipoRetiro)), "E");
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
+								snprintf(cTipoRetiro, sizeof(cTipoRetiro), "E");
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
 								iCodigoMarca = 830;
 							}
 							else if(objInfoGen.iCodigoMotivo == 1031)
 							{
 								memset(cTipoRetiro, 0, sizeof(cTipoRetiro));
-								snprintf(cTipoRetiro, strnlen(cTipoRetiro, sizeof(cTipoRetiro)), "F");
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
+								snprintf(cTipoRetiro, sizeof(cTipoRetiro), "F");
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
 								iCodigoMarca = 840;
 							}
 							else if(objInfoGen.iCodigoMotivo == 1032)
 							{
 								memset(cTipoRetiro, 0, sizeof(cTipoRetiro));
-								snprintf(cTipoRetiro, strnlen(cTipoRetiro, sizeof(cTipoRetiro)), "J");
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
+								snprintf(cTipoRetiro, sizeof(cTipoRetiro), "J");
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
 								iCodigoMarca = 880;
 							}
 							else if(objInfoGen.iCodigoMotivo == 1033)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(3, '%s', %i, 'H', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(3, '%s', %i, 'H', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 860;
 							}
 							else if(objInfoGen.iCodigoMotivo == 1034)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(3, '%s', %i, 'G', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(3, '%s', %i, 'G', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 850;
 							}
 							else if(objInfoGen.iCodigoMotivo == 1052 )
 							{
 								memset(cTipoRetiro, 0, sizeof(cTipoRetiro));
-								snprintf(cTipoRetiro, strnlen(cTipoRetiro, sizeof(cTipoRetiro)), "M");
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
+								snprintf(cTipoRetiro, sizeof(cTipoRetiro), "M");
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
 								iCodigoMarca = 825;
 							}
 							else if(objInfoGen.iCodigoMotivo == 1059)
 							{
 								memset(cTipoRetiro, 0, sizeof(cTipoRetiro));
-								snprintf(cTipoRetiro, strnlen(cTipoRetiro, sizeof(cTipoRetiro)), "F");
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
+								snprintf(cTipoRetiro, sizeof(cTipoRetiro), "F");
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
 								iCodigoMarca = 840;
 							}
 							/********************************************************************************************************************************/
@@ -344,35 +344,35 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 						    //if(objInfoGen.iCodigoMotivo == 2016)
 							else if(objInfoGen.iCodigoMotivo == 2016)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(3, '%s', %i, 'J', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(3, '%s', %i, 'J', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 880;
 							}
 							else if(objInfoGen.iCodigoMotivo == 2017)
 							{
 								memset(cTipoRetiro, 0, sizeof(cTipoRetiro));
-								snprintf(cTipoRetiro, strnlen(cTipoRetiro, sizeof(cTipoRetiro)), "M");
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
+								snprintf(cTipoRetiro, sizeof(cTipoRetiro), "M");
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
 								iCodigoMarca = 825;
 							}
 							else if(objInfoGen.iCodigoMotivo == 2037)
 							{
 								memset(cTipoRetiro, 0, sizeof(cTipoRetiro));
-								snprintf(cTipoRetiro, strnlen(cTipoRetiro, sizeof(cTipoRetiro)), "F");
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
+								snprintf(cTipoRetiro, sizeof(cTipoRetiro), "F");
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
 								iCodigoMarca = 840;
 							}
 							else if(objInfoGen.iCodigoMotivo == 2038)
 							{	
 								memset(cTipoRetiro, 0, sizeof(cTipoRetiro));
-								snprintf(cTipoRetiro, strnlen(cTipoRetiro, sizeof(cTipoRetiro)), "P");
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
+								snprintf(cTipoRetiro, sizeof(cTipoRetiro), "P");
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
 								iCodigoMarca = 835;
 							}
 							else if(objInfoGen.iCodigoMotivo == 2039)
 							{
 								memset(cTipoRetiro, 0, sizeof(cTipoRetiro));
-								snprintf(cTipoRetiro, strnlen(cTipoRetiro, sizeof(cTipoRetiro)), "E");
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
+								snprintf(cTipoRetiro, sizeof(cTipoRetiro), "E");
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta_retiros(3, '%s', %i, '%s', %i);", cNss, iConsecutivo, cTipoRetiro, iPromotor);
 								iCodigoMarca = 830;
 							}
 							////////////////////////////////////// FIN TIPO OPERACION '0520' IMSS////////////////////////////////////////////////////
@@ -380,42 +380,42 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 							////////////////////////////////////// TIPO OPERACION '0521' ISSSTE ////////////////////////////////////////////////////
 							else if(objInfoGen.iCodigoMotivo == 851)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'A', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'A', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 851;
 							}
 							else if(objInfoGen.iCodigoMotivo == 852)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'B', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'B', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 852;
 							}
 							else if(objInfoGen.iCodigoMotivo == 853)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'C', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'C', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 853;
 							}
 							else if(objInfoGen.iCodigoMotivo == 854)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'D', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'D', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 854;
 							}
 							else if(objInfoGen.iCodigoMotivo == 855)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'E', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'E', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 855;
 							}
 							else if(objInfoGen.iCodigoMotivo == 858)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'K', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'K', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 858;
 							}
 							else if(objInfoGen.iCodigoMotivo == 859)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'M', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'M', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 859;
 							}
 							else if(objInfoGen.iCodigoMotivo == 863)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'I', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'I', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 864;
 							}
 							////////////////////////////////////// FIN TIPO OPERACION '0521'ISSSTE //////////////////////////////////////////////////
@@ -423,12 +423,12 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 							////////////////////////////////////// TIPO OPERACION '0522' BANXICO ///////////////////////////////////////////////////
 							else if(objInfoGen.iCodigoMotivo == 861)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'A', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'A', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 851;
 							}
 							else if(objInfoGen.iCodigoMotivo == 862)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'B', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(2, '%s', %i, 'B', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 852;
 							}
 
@@ -439,12 +439,12 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 							////////////////////////////////////// TIPO OPERACION '0523' RP Y PG IMSS /////////////////////////////////////////////////
 							else if(objInfoGen.iCodigoMotivo == 2018)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(3, '%s', %i, 'S', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(3, '%s', %i, 'S', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 841;
 							}
 							else if(objInfoGen.iCodigoMotivo == 2019)
 							{
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "EXECUTE FUNCTION fn_afop_marcarcuenta(3, '%s', %i, 'E', %i);", cNss, iConsecutivo, iPromotor);
+								snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_afop_marcarcuenta(3, '%s', %i, 'E', %i);", cNss, iConsecutivo, iPromotor);
 								iCodigoMarca = 830;
 							}
 							////////////////////////////////////// FIN TIPO OPERACION '0523' RP Y PG IMSS /////////////////////////////////////////////
@@ -468,7 +468,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 							}*/
 
 							memset(cTexto, 0, sizeof(cTexto));
-							snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "MARCADO DE LA CUENTA [%s]", cSql);
+							snprintf(cTexto, sizeof(cTexto), "MARCADO DE LA CUENTA [%s]", cSql);
 							objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 							bPuedeMigrar = true;
@@ -491,19 +491,19 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 										memmove(cRechazo, objMarca.cRechazo_Desc, sizeof(50));
 
 										memset(cTexto, 0, sizeof(cTexto));
-										snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "Nss: [%s], FolioServicio: [%i], Marca: [%s], Codigo: [%i], Rechazo: [%s]",cNss, iFolioServicio, cMarca, iCodigo, cRechazo);
+										snprintf(cTexto, sizeof(cTexto), "Nss: [%s], FolioServicio: [%i], Marca: [%s], Codigo: [%i], Rechazo: [%s]",cNss, iFolioServicio, cMarca, iCodigo, cRechazo);
 										objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 										if(iCodigo == 0)
 										{
 											iEstatusmigracion = 1;
 											memset(cTexto, 0, sizeof(cTexto));
-											snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "Convivencia Correcta, Nss [%s], FolioServicio: [%i]", cNss, iFolioServicio);
+											snprintf(cTexto, sizeof(cTexto), "Convivencia Correcta, Nss [%s], FolioServicio: [%i]", cNss, iFolioServicio);
 											objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 											memset(cTextoaux,0,sizeof(cTextoaux));
 											memset(cSql,0,sizeof(cSql));
-											snprintf(cSql, strnlen(cSql, sizeof(cSql)), "Update marcaoperativaactual Set correlativo = %i WHERE nss = '%s' and codigomarca = %i",iConsecutivo,cNss,iCodigoMarca);
+											snprintf(cSql, sizeof(cSql), "Update marcaoperativaactual Set correlativo = %i WHERE nss = '%s' and codigomarca = %i",iConsecutivo,cNss,iCodigoMarca);
 											objFG.fnSqlEjecutarScrip(odbcServiciosAfore, cSql, cTextoaux);
 
 											bPuedeMigrar = true;
@@ -513,7 +513,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 											bPuedeMigrar = true;
 											iEstatusmigracion = 0;
 											memset(cTexto, 0, sizeof(cTexto));
-											snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "Convivencia Incorrecta, Nss [%s], FolioServicio: [%i]", cNss, iFolioServicio);
+											snprintf(cTexto, sizeof(cTexto), "Convivencia Incorrecta, Nss [%s], FolioServicio: [%i]", cNss, iFolioServicio);
 											objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 											/*0520*/ /*TOTALES IMSS*/
@@ -522,7 +522,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 											{
 												memset(cTextoaux,0,sizeof(cTextoaux));
 												memset(cSql,0,sizeof(cSql));
-												snprintf(cSql, strnlen(cSql, sizeof(cSql)), "update retirostotalesimss set estadosolicitud = 20, entidad = 1, codrechazoent = 66, rechazocod = %i, migracionrettotsafre = 3 "
+												snprintf(cSql, sizeof(cSql), "update retirostotalesimss set estadosolicitud = 20, entidad = 1, codrechazoent = 66, rechazocod = %i, migracionrettotsafre = 3 "
 												"where foliosolicitud = %i ",iCodigo, objInfoGen.iFolioServicio);
 												objFG.fnSqlEjecutarScrip(odbcServiciosAfore, cSql, cTextoaux);
 											}
@@ -531,7 +531,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 											{
 												memset(cTextoaux,0,sizeof(cTextoaux));
 												memset(cSql,0,sizeof(cSql));
-												snprintf(cSql, strnlen(cSql, sizeof(cSql)), "update retirostotalesissste set estado_solicitud = 90, codigo_rechazo = 66, migracionrettotsafre = 3 where foliosolicitud = %i ", iFolioServicio);
+												snprintf(cSql, sizeof(cSql), "update retirostotalesissste set estado_solicitud = 90, codigo_rechazo = 66, migracionrettotsafre = 3 where foliosolicitud = %i ", iFolioServicio);
 												objFG.fnSqlEjecutarScrip(odbcServiciosAfore, cSql, cTextoaux);
 											}
 											/*0522*/ /*TOTALES ISSSTE BANXICO*/
@@ -539,7 +539,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 											{
 												memset(cTextoaux,0,sizeof(cTextoaux));
 												memset(cSql,0,sizeof(cSql));
-												snprintf(cSql, strnlen(cSql, sizeof(cSql)), "update retirostotalesissste set estado_solicitud = 90, codigo_rechazo = 66, migracionrettotsafre = 3 where foliosolicitud = %i ", iFolioServicio);
+												snprintf(cSql, sizeof(cSql), "update retirostotalesissste set estado_solicitud = 90, codigo_rechazo = 66, migracionrettotsafre = 3 where foliosolicitud = %i ", iFolioServicio);
 												objFG.fnSqlEjecutarScrip(odbcServiciosAfore, cSql, cTextoaux);
 											}
 											/*0523*/ /*PMG IMSS*/
@@ -547,13 +547,13 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 											{
 												memset(cTextoaux,0,sizeof(cTextoaux));
 												memset(cSql,0,sizeof(cSql));
-												snprintf(cSql, strnlen(cSql, sizeof(cSql)), "update pensolicitudpmgimss set estadosolicitud = 90, codigorechazo = 66, migracionrettotsafre = 3 where foliosolicitud = %i ", iFolioServicio);
+												snprintf(cSql, sizeof(cSql), "update pensolicitudpmgimss set estadosolicitud = 90, codigorechazo = 66, migracionrettotsafre = 3 where foliosolicitud = %i ", iFolioServicio);
 												objFG.fnSqlEjecutarScrip(odbcServiciosAfore, cSql, cTextoaux);
 											}
 
 											memset(cTextoaux,0,sizeof(cTextoaux));
 											memset(cSql,0,sizeof(cSql));
-											snprintf(cSql, strnlen(cSql, sizeof(cSql)), "DELETE FROM marcaoperativaactual WHERE nss = '%s' and codigomarca = %i", cNss,iCodigoMarca);
+											snprintf(cSql, sizeof(cSql), "DELETE FROM marcaoperativaactual WHERE nss = '%s' and codigomarca = %i", cNss,iCodigoMarca);
 											objFG.fnSqlEjecutarScrip(odbcServiciosAfore, cSql, cTextoaux);
 										}
 
@@ -564,7 +564,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 										memset(cFechaMarca, 0, sizeof(cFechaMarca));
 										memset(cHoraMarca, 0, sizeof(cHoraMarca));
 
-										snprintf(cSql, strnlen(cSql, sizeof(cSql)), "SELECT TRIM(COALESCE(fechamarca,''))::char(10) AS fechamarca, "
+										snprintf(cSql, sizeof(cSql), "SELECT TRIM(COALESCE(fechamarca,''))::char(10) AS fechamarca, "
 									  			  			 "TRIM(COALESCE(hora,''))::char(8) AS hora "
 													"FROM fnrettotfechahoramarca('%s',%ld);",cNss,iConsecutivo);
 
@@ -580,7 +580,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 												memmove(cFechaMarca, objInfoFechaHoraMarca.cFechaMarca, sizeof(10));
 												memmove(cHoraMarca, objInfoFechaHoraMarca.cHoraMarca, sizeof(8));
 
-												snprintf(cFechaActualizaMarca, strnlen(cFechaActualizaMarca, sizeof(cFechaActualizaMarca)), "MDY(%c%c,%c%c,%c%c%c%c)",
+												snprintf(cFechaActualizaMarca, sizeof(cFechaActualizaMarca), "MDY(%c%c,%c%c,%c%c%c%c)",
 												cFechaMarca[5],
 												cFechaMarca[6],
 												cFechaMarca[8],
@@ -595,25 +595,25 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 												memset(cTexto,0, sizeof(cTexto));
 
 												memset(cSqlAux, 0, sizeof(cSqlAux));
-												snprintf(cSqlAux, strnlen(cSqlAux, sizeof(cSqlAux)), "EXECUTE FUNCTION fn_actualiza_fechamarca(%s,'%s'::DATETIME HOUR TO SECOND,'%s',%i);", cFechaActualizaMarca, cHoraMarca,cNss,iConsecutivo);
+												snprintf(cSqlAux, sizeof(cSqlAux), "EXECUTE FUNCTION fn_actualiza_fechamarca(%s,'%s'::DATETIME HOUR TO SECOND,'%s',%i);", cFechaActualizaMarca, cHoraMarca,cNss,iConsecutivo);
 
 												objFG.fnSqlConsultarNumero(odbcInfxSafreaf, cSqlAux, iRespuesta, cTexto);
 
 												if (iRespuesta == 1)
 												{
 													memset(cTexto, 0, sizeof(cTexto));
-													snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "SE ACTUALIZO LA FECHA Y HORA CON EL FOLIO: [%i]", iFolioServicio);
+													snprintf(cTexto, sizeof(cTexto), "SE ACTUALIZO LA FECHA Y HORA CON EL FOLIO: [%i]", iFolioServicio);
 													objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 													objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 												}
 												else
 												{
 													memset(cTexto, 0, sizeof(cTexto));
-													snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO SE PUDO ACTUALIZAR LA FECHA Y HORA CON EL FOLIO: [%i]", iFolioServicio);
+													snprintf(cTexto, sizeof(cTexto), "NO SE PUDO ACTUALIZAR LA FECHA Y HORA CON EL FOLIO: [%i]", iFolioServicio);
 													objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 													memset(cTexto, 0, sizeof(cTexto));
-													snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "QUERY: [%s]", cSqlAux);
+													snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSqlAux);
 
 													objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 													objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
@@ -622,28 +622,28 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 											else
 											{
 												memset(cTexto, 0, sizeof(cTexto));
-												snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+												snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 												objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 											}
 										}
 										else
 										{
 											memset(cTexto, 0, sizeof(cTexto));
-											snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+											snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 											objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 										}
 									}
 									else
 									{
 										memset(cTexto, 0, sizeof(cTexto));
-										snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al leer la informacion: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+										snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al leer la informacion: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 										objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 									}
 								}
 								else
 								{
 									memset(cTexto, 0, sizeof(cTexto));
-									snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+									snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 									objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 									shRet = ERR_EXEC_SQL;
 
@@ -684,7 +684,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 								objFG.fnArcGrabarLogx(RUTA_LOG,"***********************************REC _SOLICITUD***************************************");
 
 								memset(cSqlAux, 0, sizeof(cSqlAux));
-								snprintf(cSqlAux, strnlen(cSqlAux, sizeof(cSqlAux)), "EXECUTE FUNCTION fn_afop_iud_rec_solicitud(%i,%i,'%s','%s',%i,%i,%i,%i,%i,'%s','%s','%s','%s','',%i,%i,'%s','',%i,%i);",
+								snprintf(cSqlAux, sizeof(cSqlAux), "EXECUTE FUNCTION fn_afop_iud_rec_solicitud(%i,%i,'%s','%s',%i,%i,%i,%i,%i,'%s','%s','%s','%s','',%i,%i,'%s','',%i,%i);",
 													1,
 													iFolioServicio,
 													cCurp,
@@ -712,25 +712,25 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 								if (iRespuestaQuery > 0)
 								{
 									memset(cTexto, 0, sizeof(cTexto));
-									snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "SE MIGRO LA INFORMACION A REC SOLCITUD CON EL FOLIO: [%i]", iFolioServicio);
+									snprintf(cTexto, sizeof(cTexto), "SE MIGRO LA INFORMACION A REC SOLCITUD CON EL FOLIO: [%i]", iFolioServicio);
 									objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 									objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 
 									/*SE ACTUALIZA LA HORA FIN EN LA REC_SOLCITUD*/
 									memset(cTextoaux,0,sizeof(cTextoaux));
 							 		memset(cSql,0,sizeof(cSql));
-							 		snprintf(cSql, strnlen(cSql, sizeof(cSql)), "UPDATE rec_solicitud SET tiempo_fin = '%s' WHERE folio_rec = %i AND n_seguro ='%s' ",cHoraFin,iFolioServicio,cNss);
+							 		snprintf(cSql, sizeof(cSql), "UPDATE rec_solicitud SET tiempo_fin = '%s' WHERE folio_rec = %i AND n_seguro ='%s' ",cHoraFin,iFolioServicio,cNss);
 
 									objFG.fnSqlEjecutarScrip(odbcInfxSafreaf, cSql, cTextoaux);
 								}
 								else
 								{
 									memset(cTexto, 0, sizeof(cTexto));
-									snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO SE PUDO MIGRAR LA INFORMACION A REC SOLCITUD CON EL FOLIO: [%i]", iFolioServicio);
+									snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION A REC SOLCITUD CON EL FOLIO: [%i]", iFolioServicio);
 									objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 									memset(cTexto, 0, sizeof(cTexto));
-									snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "QUERY: [%s]", cSqlAux);
+									snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSqlAux);
 
 									objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 									objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
@@ -741,7 +741,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 
 								char 	cFechaReclamoRetiro[10]  = {0};
 
-								snprintf(cFechaReclamoRetiro, strnlen(cFechaReclamoRetiro, sizeof(cFechaReclamoRetiro)), "%c%c%c%c-%c%c-%c%c",
+								snprintf(cFechaReclamoRetiro, sizeof(cFechaReclamoRetiro), "%c%c%c%c-%c%c-%c%c",
 								cFechaReclamo[4],
 								cFechaReclamo[5],
 								cFechaReclamo[6],
@@ -753,7 +753,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 								);
 
 								memset(cSqlAux, 0, sizeof(cSqlAux));
-								snprintf(cSqlAux, strnlen(cTexto, sizeof(cTexto)), "EXECUTE FUNCTION fn_guardarretmotivoretiroreplicart(%i,%i,'%s','%s','%s');",
+								snprintf(cSqlAux, sizeof(cTexto), "EXECUTE FUNCTION fn_guardarretmotivoretiroreplicart(%i,%i,'%s','%s','%s');",
 													iFolioServicio,
 													iMotivoretiro,
 													cTipoServicio,
@@ -766,18 +766,18 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 								if (iRespuestaQuery == 1)
 								{
 									memset(cTexto, 0, sizeof(cTexto));
-									snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "SE MIGRO LA INFORMACION A RETMOTIVORETIRO CON EL FOLIO: [%i]", iFolioServicio);
+									snprintf(cTexto, sizeof(cTexto), "SE MIGRO LA INFORMACION A RETMOTIVORETIRO CON EL FOLIO: [%i]", iFolioServicio);
 									objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 									objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 								}
 								else
 								{
 									memset(cTexto, 0, sizeof(cTexto));
-									snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO SE PUDO MIGRAR LA INFORMACION A RETMOTIVORETIRO CON EL FOLIO: [%i]", iFolioServicio);
+									snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION A RETMOTIVORETIRO CON EL FOLIO: [%i]", iFolioServicio);
 									objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 									memset(cTexto, 0, sizeof(cTexto));
-									snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "QUERY: [%s]", cSqlAux);
+									snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSqlAux);
 
 									objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 									objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
@@ -790,7 +790,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 								{
 									memset(cSql,0,sizeof(cSql));
 									memset(cTexto,0,sizeof(cTexto));
-									snprintf(cSql, strnlen(cSql, sizeof(cSql)), " SELECT COALESCE(TRIM(curpbenef),'') FROM retbeneficiario  WHERE foliosolicitud = %i ;",iFolioServicio);
+									snprintf(cSql, sizeof(cSql), " SELECT COALESCE(TRIM(curpbenef),'') FROM retbeneficiario  WHERE foliosolicitud = %i ;",iFolioServicio);
 									objFG.fnArcGrabarLogx(RUTA_LOG,cSql);
 									CObtenerCurpSolBeneficiario objSolCurp(odbcServiciosAfore);
 									if(objSolCurp.Exec(cSql))
@@ -804,14 +804,14 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 											memmove(stSelloBiometricoSuv.cCurpSolicitante, cCurpBen, sizeof(cCurpBen));
 
 											memset(cTexto, 0, sizeof(cTexto));
-											snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "ES BENEFICIARIO LA CURP: [%s]",cCurp);
+											snprintf(cTexto, sizeof(cTexto), "ES BENEFICIARIO LA CURP: [%s]",cCurp);
 											objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 										}
 									}
 									else
 									{
 										memset(cTexto, 0, sizeof(cTexto));
-										snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO SE PUDO OBTENER LA INFORMACION DE CURP DEL BENEFICIARIO CON EL FOLIO: [%i]", iFolioServicio);
+										snprintf(cTexto, sizeof(cTexto), "NO SE PUDO OBTENER LA INFORMACION DE CURP DEL BENEFICIARIO CON EL FOLIO: [%i]", iFolioServicio);
 										objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 									}
 								}
@@ -819,7 +819,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 								{
 									memmove(stSelloBiometricoSuv.cCurpSolicitante, cCurp, sizeof(cCurp));
 									memset(cTexto, 0, sizeof(cTexto));
-									snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO ES BENEFICIARIO EL FOLIO: [%i]  CURP: [%s]", iFolioServicio,cCurp);
+									snprintf(cTexto, sizeof(cTexto), "NO ES BENEFICIARIO EL FOLIO: [%i]  CURP: [%s]", iFolioServicio,cCurp);
 									objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 								}
 
@@ -867,7 +867,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 									objInfoGen.iCodigoMotivo == 860 || objInfoGen.iCodigoMotivo == 861 || objInfoGen.iCodigoMotivo == 862)
 								{
 									/**********************************INICIA LA MIGRACION PARA RETIROS TOTALES ISSSTE*************************************/
-									snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "CODIGO MOTIVO %i FOLIO: %i CURP: %s", objInfoGen.iCodigoMotivo,iFolioServicio,cCurp);
+									snprintf(cTexto, sizeof(cTexto), "CODIGO MOTIVO %i FOLIO: %i CURP: %s", objInfoGen.iCodigoMotivo,iFolioServicio,cCurp);
 									objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 									objRetTotIssste.setStSelloBiometricoSuv(&stSelloBiometricoSuv);
 									objRetTotIssste.saveSelloBiometricoSuv(odbcInfxSafreaf);
@@ -916,7 +916,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 
 								/*SE ACTUALIZAN LOS FOLIOS MIGRADOS*/
 								memset(cSql, 0, sizeof(cSql));
-								snprintf(cSql, strnlen(cSql, sizeof(cSql)), "select * from fnrettotactualizarecservicios(%i,%i,%i,'%s');", 2,iConsecutivo, iFolioServicio,cNss);
+								snprintf(cSql, sizeof(cSql), "select * from fnrettotactualizarecservicios(%i,%i,%i,'%s');", 2,iConsecutivo, iFolioServicio,cNss);
 								objFG.fnSqlConsultarTexto(odbcAforeGlobal,(char*)cSql, (char*)cOutTexto);
 							}
 						}
@@ -997,7 +997,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 				else if(iExisteBD == 0)
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] La solicitud No cuenta con una clave unica de servicio vigente, Para el Foliosolicitud:[%i]",__FILE__,__FUNCTION__,iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "[%s][%s] La solicitud No cuenta con una clave unica de servicio vigente, Para el Foliosolicitud:[%i]",__FILE__,__FUNCTION__,iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 				}
 			
@@ -1005,20 +1005,20 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 			else if(iExisteBD == 0)
 			{
 				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] La solicitud No se Encuentra en la BD ServiciosAfore,Favor de Revisar Foliosolicitud:[%i]",__FILE__,__FUNCTION__,iFolioServicio);
+				snprintf(cTexto, sizeof(cTexto), "[%s][%s] La solicitud No se Encuentra en la BD ServiciosAfore,Favor de Revisar Foliosolicitud:[%i]",__FILE__,__FUNCTION__,iFolioServicio);
 				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 			}
 		}//end while
 
 		memset(cTexto, 0, sizeof(cTexto));
-		snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] TotalRegistros procesados : %i",__FILE__,__FUNCTION__, iContRegistros);
+		snprintf(cTexto, sizeof(cTexto), "[%s][%s] TotalRegistros procesados : %i",__FILE__,__FUNCTION__, iContRegistros);
 		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 	}//end if exec
 	else
 	{
 		memset(cTexto, 0, sizeof(cTexto));
-		snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+		snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 		shRet = ERR_EXEC_SQL;
 	}

@@ -28,14 +28,14 @@ short CInfoRetFolioInfonavit::ReplicarRetFolioInfonavit(int iFolioServicio,C_ODB
 
 	objFG.fnArcGrabarLogx(RUTA_LOG,"***********************************ENTRA RETFOLIOINFONAVIT***************************************");
 	memset(cTexto,0,sizeof(cTexto));
-	snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
+	snprintf(cTexto, sizeof(cTexto), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
 	objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 	//OBTENCIÓN DE LA INFORMACION QUE SE VA A MIGRAR DE RECSERVICIOS AFORE TIMBRADO
 	memset(cSql,0,sizeof(cSql));
 	memset(cTexto,0,sizeof(cTexto));
 
-	snprintf(cSql, strnlen(cSql, sizeof(cSql)), " SELECT TRIM(COALESCE(cnss,''))::char(11) AS cnss, "
+	snprintf(cSql, sizeof(cSql), " SELECT TRIM(COALESCE(cnss,''))::char(11) AS cnss, "
 						  	   "COALESCE(bconsecutivo,0) AS bconsecutivo, "
 						  "TRIM(COALESCE(cfolioinfonavit,''))::char(14) AS cfolioinfonavit, "
 						       "COALESCE(ifoliosolicitud,0) AS ifoliosolicitud, "
@@ -62,7 +62,7 @@ short CInfoRetFolioInfonavit::ReplicarRetFolioInfonavit(int iFolioServicio,C_ODB
 			memmove(cTipoRetiro, objRetFolioInfonavit.cTiporetiro, sizeof(1));
 					
 			//memcpy(cFechaCaptura, objRetFolioInfonavit.cFechacaptura, 10);		
-			snprintf(cFechaCaptura, strnlen(cFechaCaptura, sizeof(cFechaCaptura)), "MDY(%c%c,%c%c,%c%c%c%c)",
+			snprintf(cFechaCaptura, sizeof(cFechacaptura), "MDY(%c%c,%c%c,%c%c%c%c)",
 					objRetFolioInfonavit.cFechacaptura[5], 
 					objRetFolioInfonavit.cFechacaptura[6],
 					objRetFolioInfonavit.cFechacaptura[8],
@@ -77,7 +77,7 @@ short CInfoRetFolioInfonavit::ReplicarRetFolioInfonavit(int iFolioServicio,C_ODB
 			if (objRetFolioInfonavit.iFoliosolicitud == 0)
 			{
 				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+				snprintf(cTexto, sizeof(cTexto), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 				objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 			}
@@ -86,7 +86,7 @@ short CInfoRetFolioInfonavit::ReplicarRetFolioInfonavit(int iFolioServicio,C_ODB
 				memset(cSqlAux,0, sizeof(cSqlAux));
 				memset(cTexto,0, sizeof(cTexto));
 
-				snprintf(cSqlAux, strnlen(cSqlAux, sizeof(cSqlAux)), "EXECUTE FUNCTION fn_guardarretfolioinfonavitreplicart('%s',%i,'%s',%i,'%s',%s,'%s');",
+				snprintf(cSqlAux, sizeof(cSqlAux), "EXECUTE FUNCTION fn_guardarretfolioinfonavitreplicart('%s',%i,'%s',%i,'%s',%s,'%s');",
 													cNss,
 													objRetFolioInfonavit.iConsecutivo,
 													cFolioInfonavit,
@@ -101,18 +101,18 @@ short CInfoRetFolioInfonavit::ReplicarRetFolioInfonavit(int iFolioServicio,C_ODB
 				if (iRespuesta == 1)
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 				}
 				else
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "QUERY: [%s]", cSqlAux);
+					snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSqlAux);
 					
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
@@ -122,14 +122,14 @@ short CInfoRetFolioInfonavit::ReplicarRetFolioInfonavit(int iFolioServicio,C_ODB
 		else
 		{
 			memset(cTexto, 0, sizeof(cTexto));
-			snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+			snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 		}
 	}
 	else
 	{
 		memset(cTexto, 0, sizeof(cTexto));
-		snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+		snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 	}
 }	

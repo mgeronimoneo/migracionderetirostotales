@@ -60,7 +60,7 @@ short obtenerConexionBaseDato()
 	{
 		memset(cLinea, 0, sizeof(cLinea));
 		memset(cIpAux, 0, sizeof(cIpAux));
-		
+
 		strncpy(cIpAux, fgets(cLinea, 40, fichero), sizeof(cIpAux) - 1); // LEO HASTA LA COLUMNA 34
 		cIpAux[sizeof(cIpAux) - 1] = '\0';
 

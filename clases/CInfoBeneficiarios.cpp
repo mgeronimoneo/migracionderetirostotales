@@ -47,14 +47,14 @@ short CInfoBeneficiarios::ReplicarBeneficiarios(int iFolioServicio,C_ODBC* odbcI
 
 	objFG.fnArcGrabarLogx(RUTA_LOG,"***********************************ENTRA BENEFICIARIOS***************************************");
 	memset(cTexto,0,sizeof(cTexto));
-	snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
+	snprintf(cTexto, sizeof(cTexto), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
 	objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);	
 							
 	//OBTENCIÓN DE LA INFORMACION QUE SE VA A MIGRAR DE BENEFICIARIOS
 	memset(cSql,0,sizeof(cSql));
 	memset(cTexto,0,sizeof(cTexto));
 	
-	snprintf(cSql, strnlen(cSql, sizeof(cSql)), "SELECT  COALESCE(iFoliosolicitud,0) as foliosolicitud, "
+	snprintf(cSql, sizeof(cSql), "SELECT  COALESCE(iFoliosolicitud,0) as foliosolicitud, "
 		                  "TRIM(COALESCE(cNss,' '))::Char(11) as nss, "
 		                  "COALESCE(iConsecutivo,0)::Bigint as consecutivo, " 
 		                  "COALESCE(iConsecbenef,0)::Smallint as consecbenef, "
@@ -141,7 +141,7 @@ short CInfoBeneficiarios::ReplicarBeneficiarios(int iFolioServicio,C_ODBC* odbcI
 			memmove(cClabe, objBen.clabe, sizeof(18));	
 
 			//memcpy(cFechapago, objBen.fechapago, 15);
-			snprintf(cFechapago, strnlen(cFechapago, sizeof(cFechapago)), "%c%c%c%c-%c%c-%c%c",
+			snprintf(cFechapago, sizeof(cFechapago), "%c%c%c%c-%c%c-%c%c",
 					objBen.fechapago[6], 
 					objBen.fechapago[7],
 					objBen.fechapago[8], 
@@ -161,7 +161,7 @@ short CInfoBeneficiarios::ReplicarBeneficiarios(int iFolioServicio,C_ODBC* odbcI
 			memmove(cNumordpago, objBen.numordpago, sizeof(20));
 
 			//memcpy(cFechacaptura, objBen.fechacaptura, 15);
-			snprintf(cFechacaptura, strnlen(cFechacaptura, sizeof(cFechacaptura)), "%c%c%c%c-%c%c-%c%c",
+			snprintf(cFechacaptura, sizeof(cFechacaptura), "%c%c%c%c-%c%c-%c%c",
 					objBen.fechacaptura[6], 
 					objBen.fechacaptura[7],
 					objBen.fechacaptura[8], 
@@ -172,7 +172,7 @@ short CInfoBeneficiarios::ReplicarBeneficiarios(int iFolioServicio,C_ODBC* odbcI
 					objBen.fechacaptura[4]);
 
 			//memcpy(cFechamodifica, objBen.fechamodifica, 15);
-			snprintf(cFechamodifica, strnlen(cFechamodifica, sizeof(cFechamodifica)), "%c%c%c%c-%c%c-%c%c",
+			snprintf(cFechamodifica, sizeof(cFechamodifica), "%c%c%c%c-%c%c-%c%c",
 					objBen.fechamodifica[6], 
 					objBen.fechamodifica[7],
 					objBen.fechamodifica[8], 
@@ -188,14 +188,14 @@ short CInfoBeneficiarios::ReplicarBeneficiarios(int iFolioServicio,C_ODBC* odbcI
 			if (objBen.foliosolicitud == 0)
 			{
 				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+				snprintf(cTexto, sizeof(cTexto), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 				objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 			}
 			else if (objBen.tipopago == 0)
 			{	
 				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "TIPO PAGO INCORRECTO PARA EL FOLIO: [%i]", iFolioServicio);
+				snprintf(cTexto, sizeof(cTexto), "TIPO PAGO INCORRECTO PARA EL FOLIO: [%i]", iFolioServicio);
 				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 				objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 			}
@@ -204,7 +204,7 @@ short CInfoBeneficiarios::ReplicarBeneficiarios(int iFolioServicio,C_ODBC* odbcI
 				memset(cSqlAux,0, sizeof(cSqlAux));
 				memset(cTexto,0, sizeof(cTexto));
 				
-				snprintf(cSqlAux, strnlen(cSqlAux, sizeof(cSqlAux)), "EXECUTE FUNCTION fn_guardarbeneficiariosrtreplica('%s',%ld,%i,%i,%i,'%s','%s','%s','%s','%s','%s','%s',%i,%i,%i,%i,%i,%i,%i,'%s','%s','%s', %f,%f,'%s','%s','%s','%s','%s','%s',%i,%i,%i,'%s','%s','%s','%s','%s','%s','%s');",
+				snprintf(cSqlAux, sizeof(cSqlAux), "EXECUTE FUNCTION fn_guardarbeneficiariosrtreplica('%s',%ld,%i,%i,%i,'%s','%s','%s','%s','%s','%s','%s',%i,%i,%i,%i,%i,%i,%i,'%s','%s','%s', %f,%f,'%s','%s','%s','%s','%s','%s',%i,%i,%i,'%s','%s','%s','%s','%s','%s','%s');",
 																							 cNss,
 					                                                                         objBen.consecutivo,
 					                                                                         objBen.consecbenef,
@@ -252,18 +252,18 @@ short CInfoBeneficiarios::ReplicarBeneficiarios(int iFolioServicio,C_ODBC* odbcI
 				if (iRespuesta == 1)
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 				}
 				else
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "QUERY: [%s]", cSqlAux);
+					snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSqlAux);
 					
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
@@ -273,14 +273,14 @@ short CInfoBeneficiarios::ReplicarBeneficiarios(int iFolioServicio,C_ODBC* odbcI
 		else
 		{
 			memset(cTexto, 0, sizeof(cTexto));
-			snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+			snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 		}		
 	}
 	else
 	{
 		memset(cTexto, 0, sizeof(cTexto));
-		snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+		snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);		
 	}
 }
@@ -300,14 +300,14 @@ void CInfoBeneficiarios::replicaControlBeneficiarios(int iFolioServicio, int iCo
 
 	objFG.fnArcGrabarLogx(RUTA_LOG,"***********************************ENTRA CONTROL BENEFICIARIOS***************************************");
 	memset(cTexto,0,sizeof(cTexto));
-	snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)),"FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
+	snprintf(cTexto, sizeof(cTexto),"FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
 	objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);	
 							
 	//OBTENCIÓN DE LA INFORMACION QUE SE VA A MIGRAR DE BENEFICIARIOS
 	memset(cSql,0,sizeof(cSql));
 	memset(cTexto,0,sizeof(cTexto));
 	
-	snprintf(cSql, strnlen(cSql, sizeof(cSql)), "SELECT  COALESCE(iFoliosolicitud,0) as foliosolicitud, "
+	snprintf(cSql, sizeof(cSql), "SELECT  COALESCE(iFoliosolicitud,0) as foliosolicitud, "
 						  "TRIM(COALESCE(cNss,' '))::Char(11) as nsstrab, "
 						  "COALESCE(iTiposolicitante,0)::Smallint as tipobeneficiario, "
 						  "COALESCE(iPorcentajebeneficiario,0) as porcbeneficiario, "
@@ -321,7 +321,7 @@ void CInfoBeneficiarios::replicaControlBeneficiarios(int iFolioServicio, int iCo
 		if(objBen.leer())
 		{			
 			memset(cTexto, 0, sizeof(cTexto));
-			snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "PORCENTAJE LEGAL [%i]", objBen.porcentajelegal);
+			snprintf(cTexto, sizeof(cTexto), "PORCENTAJE LEGAL [%i]", objBen.porcentajelegal);
 			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 			memset(cNSSTrab, 0, sizeof(cNSSTrab));
@@ -331,7 +331,7 @@ void CInfoBeneficiarios::replicaControlBeneficiarios(int iFolioServicio, int iCo
 			if (objBen.foliosolicitud == 0)
 			{
 				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO EXISTE INFORMACION CON EL FOLIO [CONTROL_BENEF]: [%i]", iFolioServicio);
+				snprintf(cTexto, sizeof(cTexto), "NO EXISTE INFORMACION CON EL FOLIO [CONTROL_BENEF]: [%i]", iFolioServicio);
 				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 				objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 			}
@@ -344,7 +344,7 @@ void CInfoBeneficiarios::replicaControlBeneficiarios(int iFolioServicio, int iCo
 				objBen.tipobeneficiario == 3 || objBen.tipobeneficiario == 4)
 				{
 					
-					snprintf(cSqlAux, strnlen(cSqlAux, sizeof(cSqlAux)), "EXECUTE FUNCTION fn_reg_ctr_benef('%s', %i, %i, %i, '%s', %i, %i);",
+					snprintf(cSqlAux, sizeof(cSqlAux), "EXECUTE FUNCTION fn_reg_ctr_benef('%s', %i, %i, %i, '%s', %i, %i);",
 																							cNSSTrab,
 																							iConsecutivo,
 																							objBen.tipobeneficiario,
@@ -360,18 +360,18 @@ void CInfoBeneficiarios::replicaControlBeneficiarios(int iFolioServicio, int iCo
 				if (iRespuesta == 1)
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "SE GUARDO INFORMACION CON EL FOLIO EN RET_CTR_BENEF: [%i]", iFolioServicio);
+					snprintf(cTexto, sizeof(cTexto), "SE GUARDO INFORMACION CON EL FOLIO EN RET_CTR_BENEF: [%i]", iFolioServicio);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
 				}
 				else
 				{
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "NO SE GUARDO INFORMACION CON EL FOLIO EN RET_CTR_BENEF: [%i] TIPO DE BENEF: [%i]", iFolioServicio,objBen.tipobeneficiario);
+					snprintf(cTexto, sizeof(cTexto), "NO SE GUARDO INFORMACION CON EL FOLIO EN RET_CTR_BENEF: [%i] TIPO DE BENEF: [%i]", iFolioServicio,objBen.tipobeneficiario);
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 
 					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "QUERY: [%s]", cSqlAux);
+					snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSqlAux);
 					
 					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 					objFG.fnArcGrabarLogx(RUTA_LOG,"**************************************************************************");
@@ -381,14 +381,14 @@ void CInfoBeneficiarios::replicaControlBeneficiarios(int iFolioServicio, int iCo
 		else
 		{
 			memset(cTexto, 0, sizeof(cTexto));
-			snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+			snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 		}		
 	}
 	else
 	{
 		memset(cTexto, 0, sizeof(cTexto));
-		snprintf(cTexto, strnlen(cTexto, sizeof(cTexto)), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
+		snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__,__FUNCTION__, cSql, errno, strerror(errno));
 		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);		
 	}
 }
