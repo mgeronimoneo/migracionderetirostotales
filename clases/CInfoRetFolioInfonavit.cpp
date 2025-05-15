@@ -62,7 +62,7 @@ short CInfoRetFolioInfonavit::ReplicarRetFolioInfonavit(int iFolioServicio,C_ODB
 			memmove(cTipoRetiro, objRetFolioInfonavit.cTiporetiro, sizeof(1));
 					
 			//memcpy(cFechaCaptura, objRetFolioInfonavit.cFechacaptura, 10);		
-			snprintf(cFechaCaptura, sizeof(cFechacaptura), "MDY(%c%c,%c%c,%c%c%c%c)",
+			snprintf(cFechaCaptura, sizeof(cFechaCaptura), "MDY(%c%c,%c%c,%c%c%c%c)",
 					objRetFolioInfonavit.cFechacaptura[5], 
 					objRetFolioInfonavit.cFechacaptura[6],
 					objRetFolioInfonavit.cFechacaptura[8],
@@ -70,7 +70,7 @@ short CInfoRetFolioInfonavit::ReplicarRetFolioInfonavit(int iFolioServicio,C_ODB
 					objRetFolioInfonavit.cFechacaptura[0],
 					objRetFolioInfonavit.cFechacaptura[1],
 					objRetFolioInfonavit.cFechacaptura[2],
-					objRetFolioInfonavit.cFechacaptura[3]);		
+					objRetFolioInfonavit.cFechacaptura[3]);	
 
 			memmove(cUsuarioCaptura, objRetFolioInfonavit.cUsuariocaptura, sizeof(12));
 
