@@ -39,7 +39,7 @@ short CInfoBeneficiarios::ReplicarBeneficiarios(int iFolioServicio,C_ODBC* odbcI
 	char 	cUsuariocaptura[14]		= {0};
 	char 	cUsuariomodifica[14] 	= {0};
 
-	char	cSql[2024] 		= {0};
+	char	cSql[3000] 		= {0};
 	char	cSqlAux[2024] 	= {0};
 	char 	cTexto[2024] 	= {0};
 
@@ -128,17 +128,17 @@ short CInfoBeneficiarios::ReplicarBeneficiarios(int iFolioServicio,C_ODBC* odbcI
 			memset(cUsuariocaptura, 0, sizeof(cUsuariocaptura));
 			memset(cUsuariomodifica, 0, sizeof(cUsuariomodifica));
 
-			memmove(cNss, objBen.nss, sizeof(11));
-			memmove(cApPaterno, objBen.paterno, sizeof(30));
-			memmove(cApMaterno, objBen.materno, sizeof(30));
-			memmove(cNombres, objBen.nombres, sizeof(30));
-			memmove(cNssbenef, objBen.nssbenef, sizeof(11));
-			memmove(cCurpbenef, objBen.curpbenef, sizeof(18));
-			memmove(cRfcbenef, objBen.rfcbenef, sizeof(13));
-			memmove(cCorreoelect, objBen.correoelect, sizeof(100));
-			memmove(cNumcuenta, objBen.numcuenta, sizeof(18));
-			memmove(cTipocuenta, objBen.tipocuenta, sizeof(1));
-			memmove(cClabe, objBen.clabe, sizeof(18));	
+			memmove(cNss, objBen.nss, sizeof(cNss));
+			memmove(cApPaterno, objBen.paterno, sizeof(cApPaterno));
+			memmove(cApMaterno, objBen.materno, sizeof(cApMaterno));
+			memmove(cNombres, objBen.nombres, sizeof(cNombres));
+			memmove(cNssbenef, objBen.nssbenef, sizeof(cNssbenef));
+			memmove(cCurpbenef, objBen.curpbenef, sizeof(cCurpbenef));
+			memmove(cRfcbenef, objBen.rfcbenef, sizeof(cRfcbenef));
+			memmove(cCorreoelect, objBen.correoelect, sizeof(cCorreoelect));
+			memmove(cNumcuenta, objBen.numcuenta, sizeof(cNumcuenta));
+			memmove(cTipocuenta, objBen.tipocuenta, sizeof(cTipocuenta));
+			memmove(cClabe, objBen.clabe, sizeof(cClabe));	
 
 			//memcpy(cFechapago, objBen.fechapago, 15);
 			snprintf(cFechapago, sizeof(cFechapago), "%c%c%c%c-%c%c-%c%c",
@@ -151,14 +151,14 @@ short CInfoBeneficiarios::ReplicarBeneficiarios(int iFolioServicio,C_ODBC* odbcI
 					objBen.fechapago[3],
 					objBen.fechapago[4]);
 
-			memmove(cDomcalle, objBen.domcalle, sizeof(40));
-			memmove(cDomnumeroext, objBen.domnumeroext, sizeof(10));
-			memmove(cDomnumeroint, objBen.domnumeroint, sizeof(10));
-			memmove(cDomcodpos, objBen.domcodpos, sizeof(5));
-			memmove(cDomcolonia, objBen.domcolonia, sizeof(60));	
-			memmove(cDompais, objBen.dompais, sizeof(3));
-			memmove(cDomtelefono, objBen.domtelefono, sizeof(40));
-			memmove(cNumordpago, objBen.numordpago, sizeof(20));
+			memmove(cDomcalle, objBen.domcalle, sizeof(cDomcalle));
+			memmove(cDomnumeroext, objBen.domnumeroext, sizeof(cDomnumeroext));
+			memmove(cDomnumeroint, objBen.domnumeroint, sizeof(cDomnumeroint));
+			memmove(cDomcodpos, objBen.domcodpos, sizeof(cDomcodpos));
+			memmove(cDomcolonia, objBen.domcolonia, sizeof(cDomcolonia));	
+			memmove(cDompais, objBen.dompais, sizeof(cDompais));
+			memmove(cDomtelefono, objBen.domtelefono, sizeof(cDomtelefono));
+			memmove(cNumordpago, objBen.numordpago, sizeof(cNumordpago));
 
 			//memcpy(cFechacaptura, objBen.fechacaptura, 15);
 			snprintf(cFechacaptura, sizeof(cFechacaptura), "%c%c%c%c-%c%c-%c%c",
@@ -182,8 +182,8 @@ short CInfoBeneficiarios::ReplicarBeneficiarios(int iFolioServicio,C_ODBC* odbcI
 					objBen.fechamodifica[3],
 					objBen.fechamodifica[4]);
 
-			memmove(cUsuariocaptura, objBen.usuariocaptura, sizeof(12));
-			memmove(cUsuariomodifica, objBen.usuariomodifica, sizeof(12));
+			memmove(cUsuariocaptura, objBen.usuariocaptura, sizeof(cUsuariocaptura));
+			memmove(cUsuariomodifica, objBen.usuariomodifica, sizeof(cUsuariomodifica));
 
 			if (objBen.foliosolicitud == 0)
 			{
@@ -326,7 +326,7 @@ void CInfoBeneficiarios::replicaControlBeneficiarios(int iFolioServicio, int iCo
 
 			memset(cNSSTrab, 0, sizeof(cNSSTrab));
 
-			memmove(cNSSTrab, objBen.nsstrab, sizeof(11));
+			memmove(cNSSTrab, objBen.nsstrab, sizeof(cNSSTrab));
 
 			if (objBen.foliosolicitud == 0)
 			{

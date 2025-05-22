@@ -213,13 +213,13 @@ short CInfoRetTotPmgImss::ReplicarRetirosTotalesPmgImss(int iFolioServicio,C_ODB
 			memset(cMarcaultpago, 0, sizeof(cMarcaultpago));
 			memset(cNssctr, 0, sizeof(cNssctr));
 					
-			memmove(cNss, objRetTotPmg.cNss, sizeof(11));
-			memmove(cCurp, objRetTotPmg.cCurp, sizeof(18));
-			memmove(cSecpension, objRetTotPmg.cSecpension, sizeof(2));
-			memmove(cTiporetiro, objRetTotPmg.cTiporetiro, sizeof(1));
-			memmove(cRegimen, objRetTotPmg.cRegimen, sizeof(2));
-			memmove(cTiposeguro, objRetTotPmg.cTiposeguro, sizeof(2));
-			memmove(cTipopension, objRetTotPmg.cTipopension, sizeof(2));
+			memmove(cNss, objRetTotPmg.cNss, sizeof(cNss));
+			memmove(cCurp, objRetTotPmg.cCurp, sizeof(cCurp));
+			memmove(cSecpension, objRetTotPmg.cSecpension, sizeof(cSecpension));
+			memmove(cTiporetiro, objRetTotPmg.cTiporetiro, sizeof(cTiporetiro));
+			memmove(cRegimen, objRetTotPmg.cRegimen, sizeof(cRegimen));
+			memmove(cTiposeguro, objRetTotPmg.cTiposeguro, sizeof(cTiposeguro));
+			memmove(cTipopension, objRetTotPmg.cTipopension, sizeof(cTipopension));
 
 			//memcpy(cFechainipen, objRetTotPmg.cFechainipen, 10);
 			snprintf(cFechainipen, sizeof(cFechainipen), "MDY(%c%c,%c%c,%c%c%c%c)",
@@ -265,7 +265,7 @@ short CInfoRetTotPmgImss::ReplicarRetirosTotalesPmgImss(int iFolioServicio,C_ODB
 					objRetTotPmg.cFechapago[8],
 					objRetTotPmg.cFechapago[9]);
 
-			memmove(cDiagregistro, objRetTotPmg.cDiagregistro, sizeof(3));
+			memmove(cDiagregistro, objRetTotPmg.cDiagregistro, sizeof(cDiagregistro));
 
 			//memcpy(cFechacaptura, objRetTotPmg.cFechacaptura, 10);
 			snprintf(cFechacaptura, sizeof(cFechacaptura), "MDY(%c%c,%c%c,%c%c%c%c)",
@@ -278,8 +278,8 @@ short CInfoRetTotPmgImss::ReplicarRetirosTotalesPmgImss(int iFolioServicio,C_ODB
 					objRetTotPmg.cFechacaptura[8],
 					objRetTotPmg.cFechacaptura[9]);
 
-			memmove(cHoracaptura, objRetTotPmg.cHoracaptura, sizeof(8));
-			memmove(cUsuariocaptura, objRetTotPmg.cUsuariocaptura, sizeof(15));
+			memmove(cHoracaptura, objRetTotPmg.cHoracaptura, sizeof(cHoracaptura));
+			memmove(cUsuariocaptura, objRetTotPmg.cUsuariocaptura, sizeof(cUsuariocaptura));
 
 			//memcpy(cFechamodifica, objRetTotPmg.cFechamodifica, 10);
 			snprintf(cFechamodifica, sizeof(cFechamodifica), "MDY(%c%c,%c%c,%c%c%c%c)",
@@ -292,8 +292,8 @@ short CInfoRetTotPmgImss::ReplicarRetirosTotalesPmgImss(int iFolioServicio,C_ODB
 					objRetTotPmg.cFechamodifica[8],
 					objRetTotPmg.cFechamodifica[9]);
 			
-			memmove(cHoramodifica, objRetTotPmg.cHoramodifica, sizeof(8));			
-			memmove(cUsuariomodifica, objRetTotPmg.cUsuariomodifica, sizeof(15));
+			memmove(cHoramodifica, objRetTotPmg.cHoramodifica, sizeof(cHoramodifica));			
+			memmove(cUsuariomodifica, objRetTotPmg.cUsuariomodifica, sizeof(cUsuariomodifica));
 
 			//memcpy(cFechaconfirma, objRetTotPmg.cFechaconfirma, 10);
 			snprintf(cFechaconfirma, sizeof(cFechaconfirma), "MDY(%c%c,%c%c,%c%c%c%c)",
@@ -306,10 +306,10 @@ short CInfoRetTotPmgImss::ReplicarRetirosTotalesPmgImss(int iFolioServicio,C_ODB
 					objRetTotPmg.cFechaconfirma[8],
 					objRetTotPmg.cFechaconfirma[9]);
 
-			memmove(cHoraconfirma, objRetTotPmg.cHoraconfirma, sizeof(8));
-			memmove(cUsuarioconfirma, objRetTotPmg.cUsuarioconfirma, sizeof(15));
+			memmove(cHoraconfirma, objRetTotPmg.cHoraconfirma, sizeof(cHoraconfirma));
+			memmove(cUsuarioconfirma, objRetTotPmg.cUsuarioconfirma, sizeof(cUsuarioconfirma));
 
-			memmove(cNssctrdet, objRetTotPmg.cNssctrdet, sizeof(11));
+			memmove(cNssctrdet, objRetTotPmg.cNssctrdet, sizeof(cNssctrdet));
 			//memcpy(cFechapagoestimada, objRetTotPmg.cFechapagoestimada, 10);
 			snprintf(cFechapagoestimada, sizeof(cFechapagoestimada), "MDY(%c%c,%c%c,%c%c%c%c)",
 					objRetTotPmg.cFechapagoestimada[0], 
@@ -343,9 +343,9 @@ short CInfoRetTotPmgImss::ReplicarRetirosTotalesPmgImss(int iFolioServicio,C_ODB
 					objRetTotPmg.cFechaliquida[8],
 					objRetTotPmg.cFechaliquida[9]);
 
-			memmove(cMarcaultpago, objRetTotPmg.cMarcaultpago, sizeof(1));			
+			memmove(cMarcaultpago, objRetTotPmg.cMarcaultpago, sizeof(cMarcaultpago));			
 			objFG.fnArcGrabarLogx(RUTA_LOG," 21 ");
-			memmove(cNssctr, objRetTotPmg.cNssctr, sizeof(11));
+			memmove(cNssctr, objRetTotPmg.cNssctr, sizeof(cNssctr));
 			iTipocontrato = objRetTotPmg.iTipocontrato;
 
 			if (objRetTotPmg.iFoliosolicitud == 0)

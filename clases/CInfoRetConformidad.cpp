@@ -21,13 +21,13 @@ short CInfoRetConformidad::ReplicarRetConformidad(int iFolioServicio,C_ODBC* odb
 	char cOtraidentificacion[4] = {0};
 	char cFolioife[15] = {0};
 	char cCveelector[20] = {0};
-	char cFechacaptura[12] = {0};
+	char cFechacaptura[20] = {0};
 	char cFechamodifica[12] = {0};
 	char cFolioinfonavit[16] = {0};
 	char cUsuariocaptura[14] = {0};
 	char cUsuariomodifica[14] = {0};
 	
-	char cSql[1024] 		= {0};
+	char cSql[2024] 		= {0};
 	char cSqlAux[1024] 		= {0};
 	char cTexto[1024] 		= {0};
 
@@ -80,13 +80,13 @@ short CInfoRetConformidad::ReplicarRetConformidad(int iFolioServicio,C_ODBC* odb
 			memset(cUsuariocaptura,0, sizeof(cUsuariocaptura));
 			memset(cUsuariomodifica,0, sizeof(cUsuariomodifica));
 
-			memmove(cNss, objRetConformidad.cNss, sizeof(11));
-			memmove(cCtaclabe, objRetConformidad.cCtaclabe, sizeof(18));
-			memmove(cNumcuenta, objRetConformidad.cNumcuenta, sizeof(11));
-			memmove(cIdentificacion, objRetConformidad.cIdentificacion, sizeof(2));
-			memmove(cOtraidentificacion, objRetConformidad.cOtraidentificacion, sizeof(2));
-			memmove(cFolioife, objRetConformidad.cFolioife, sizeof(13));
-			memmove(cCveelector, objRetConformidad.cCveelector, (18));
+			memmove(cNss, objRetConformidad.cNss, sizeof(cNss));
+			memmove(cCtaclabe, objRetConformidad.cCtaclabe, sizeof(cCtaclabe));
+			memmove(cNumcuenta, objRetConformidad.cNumcuenta, sizeof(cNumcuenta));
+			memmove(cIdentificacion, objRetConformidad.cIdentificacion, sizeof(cIdentificacion));
+			memmove(cOtraidentificacion, objRetConformidad.cOtraidentificacion, sizeof(cOtraidentificacion));
+			memmove(cFolioife, objRetConformidad.cFolioife, sizeof(cFolioife));
+			memmove(cCveelector, objRetConformidad.cCveelector, sizeof(cCveelector));
 
 			//memcpy(cFechacaptura, objRetConformidad.cFechacaptura, 10);
 			snprintf(cFechacaptura, sizeof(cFechacaptura), "MDY(%c%c,%c%c,%c%c%c%c)",
@@ -99,10 +99,10 @@ short CInfoRetConformidad::ReplicarRetConformidad(int iFolioServicio,C_ODBC* odb
 					objRetConformidad.cFechacaptura[2],
 					objRetConformidad.cFechacaptura[3]);
 
-			memmove(cFechamodifica, objRetConformidad.cFechamodifica, sizeof(10));
-			memmove(cFolioinfonavit, objRetConformidad.cFolioinfonavit, sizeof(14));
-			memmove(cUsuariocaptura, objRetConformidad.cUsuariocaptura, sizeof(12));
-			memmove(cUsuariomodifica, objRetConformidad.cUsuariomodifica, sizeof(12));
+			memmove(cFechamodifica, objRetConformidad.cFechamodifica, sizeof(cFechamodifica));
+			memmove(cFolioinfonavit, objRetConformidad.cFolioinfonavit, sizeof(cFolioinfonavit));
+			memmove(cUsuariocaptura, objRetConformidad.cUsuariocaptura, sizeof(cUsuariocaptura));
+			memmove(cUsuariomodifica, objRetConformidad.cUsuariomodifica, sizeof(cUsuariomodifica));
 
 			if (objRetConformidad.iFoliosolicitud == 0)
 			{

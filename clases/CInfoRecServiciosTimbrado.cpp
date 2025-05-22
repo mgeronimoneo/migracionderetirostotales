@@ -54,10 +54,10 @@ short CInfoRecServiciosTimbrado::ReplicarRecServiciosTimbrado(int iFolioServicio
 			memset(cFechaAlta, 0, sizeof(cFechaAlta));
 			memset(cTiposervicio, 0, sizeof(cTiposervicio));
 
-			memmove(cNss, objRecSerTimbrado.cNss, sizeof(11));
-			memmove(cRfc, objRecSerTimbrado.cRfc, sizeof(13));
-			memmove(cTiposervicio, objRecSerTimbrado.cTiposervicio, sizeof(1));
-			memmove(cFechaAlta, objRecSerTimbrado.cFechaAlta, sizeof(19));
+			memmove(cNss, objRecSerTimbrado.cNss, sizeof(cNss));
+			memmove(cRfc, objRecSerTimbrado.cRfc, sizeof(cRfc));
+			memmove(cTiposervicio, objRecSerTimbrado.cTiposervicio, sizeof(cTiposervicio));
+			memmove(cFechaAlta, objRecSerTimbrado.cFechaAlta, sizeof(cFechaAlta));
 
 			if (objRecSerTimbrado.iFolioservicio == 0)
 			{

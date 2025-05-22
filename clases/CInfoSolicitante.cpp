@@ -58,11 +58,11 @@ short CInfoSolicitante::ReplicarSolicitante(int iFolioServicio,C_ODBC* odbcInfxS
 			memset(cNombres, 0, sizeof(cNombres));
 			memset(cTelefono, 0, sizeof(cTelefono));
 
-			memmove(cCurp, objSolicitante.cCurp, sizeof(18));
-			memmove(cPaterno, objSolicitante.cPaterno, sizeof(30));
-			memmove(cMaterno, objSolicitante.cMaterno, sizeof(30));
-			memmove(cNombres, objSolicitante.cNombres, sizeof(30));
-			memmove(cTelefono, objSolicitante.cTelefono, sizeof(40));
+			memmove(cCurp, objSolicitante.cCurp, sizeof(cCurp));
+			memmove(cPaterno, objSolicitante.cPaterno, sizeof(cPaterno));
+			memmove(cMaterno, objSolicitante.cMaterno, sizeof(cMaterno));
+			memmove(cNombres, objSolicitante.cNombres, sizeof(cNombres));
+			memmove(cTelefono, objSolicitante.cTelefono, sizeof(cTelefono));
 
 			if (objSolicitante.iFoliosolicitud == 0)
 			{

@@ -47,8 +47,8 @@ short CInfoRetSolIsssteConstancia::ReplicarRetSolIsssteConstancia(int iFolioServ
 			memset(cNss, 0, sizeof(cNss));
 			memset(cConstancia, 0, sizeof(cConstancia));
 
-			memmove(cNss, objRetConstancia.cNss, sizeof(11));
-			memmove(cConstancia, objRetConstancia.cConstancia, sizeof(1));
+			memmove(cNss, objRetConstancia.cNss, sizeof(cNss));
+			memmove(cConstancia, objRetConstancia.cConstancia, sizeof(cConstancia));
 
 			memset(cSqlAux,0, sizeof(cSqlAux));
 			memset(cTexto,0, sizeof(cTexto));

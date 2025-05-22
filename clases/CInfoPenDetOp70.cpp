@@ -110,14 +110,14 @@ short CInfoPenDetOp70::ReplicarDetalleOp70(int iFolioServicio,C_ODBC* odbcInfxSa
 			memset(cHoraCarga, 0, sizeof(cHoraCarga));
 			memset(cUsuario, 0, sizeof(cUsuario));
 
-			memmove(cNss, objDet70.nss, sizeof(11));
-			memmove(cCurp, objDet70.curp, sizeof(18));
-			memmove(cSecPension, objDet70.secpension, sizeof(2));
-			memmove(cTipoRetiro, objDet70.tiporetiro, sizeof(1));
-			memmove(cRegimen, objDet70.regimen, sizeof(2));
-			memmove(cTipoSeguro, objDet70.tiposeguro, sizeof(2));
-			memmove(cTipoPension, objDet70.tipopension, sizeof(2));
-			memmove(cCvePension,  objDet70.cvepension, sizeof(3));		
+			memmove(cNss, objDet70.nss, sizeof(cNss));
+			memmove(cCurp, objDet70.curp, sizeof(cCurp));
+			memmove(cSecPension, objDet70.secpension, sizeof(cSecPension));
+			memmove(cTipoRetiro, objDet70.tiporetiro, sizeof(cTipoRetiro));
+			memmove(cRegimen, objDet70.regimen, sizeof(cRegimen));
+			memmove(cTipoSeguro, objDet70.tiposeguro, sizeof(cTipoSeguro));
+			memmove(cTipoPension, objDet70.tipopension, sizeof(cTipoPension));
+			memmove(cCvePension,  objDet70.cvepension, sizeof(cCvePension));		
 
 			//memcpy(cFechaInicioPen, objDet70.fechainipen,10);
 			snprintf(cFechaInicioPen, sizeof(cFechaInicioPen), "%c%c%c%c-%c%c-%c%c",
@@ -174,7 +174,7 @@ short CInfoPenDetOp70::ReplicarDetalleOp70(int iFolioServicio,C_ODBC* odbcInfxSa
 					objDet70.fechafallecimiento[3],
 					objDet70.fechafallecimiento[4]);
 
-			memmove(cDiagOperacion, objDet70.diagoperacion, sizeof(2));
+			memmove(cDiagOperacion, objDet70.diagoperacion, sizeof(cDiagOperacion));
 
 			//memcpy(cFechaCarga, objDet70.fechacarga,10);
 			snprintf(cFechaCarga, sizeof(cFechaCarga), "%c%c%c%c-%c%c-%c%c",
@@ -187,8 +187,8 @@ short CInfoPenDetOp70::ReplicarDetalleOp70(int iFolioServicio,C_ODBC* odbcInfxSa
 					objDet70.fechacarga[3],
 					objDet70.fechacarga[4]);
 
-			memmove(cHoraCarga, objDet70.horacarga, sizeof(10));
-			memmove(cUsuario, objDet70.usuario, sizeof(15));
+			memmove(cHoraCarga, objDet70.horacarga, sizeof(cHoraCarga));
+			memmove(cUsuario, objDet70.usuario, sizeof(cUsuario));
 
 			memset(cSqlAux,0, sizeof(cSqlAux));
 			memset(cTexto,0, sizeof(cTexto));

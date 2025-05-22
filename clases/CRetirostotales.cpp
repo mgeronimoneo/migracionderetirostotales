@@ -150,33 +150,33 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 			memset(cSellotrabajador, 0, sizeof(cSellotrabajador));
 
 			iFolioServicio = objInfoGen.iFolioServicio;
-			memmove(cCurp, objInfoGen.cCurp, sizeof(18));
-			memmove(cNss, objInfoGen.cNss, sizeof(11));
+			memmove(cCurp, objInfoGen.cCurp, sizeof(cCurp));
+			memmove(cNss, objInfoGen.cNss, sizeof(cNss));
 			iFolioSolicitud = objInfoGen.iFolioSolicitud;
 			iOrigenServicio = objInfoGen.iOrigenServicio;
 			iCodigoMedio = objInfoGen.iCodigoMedio;
 			iCodigoTipo = objInfoGen.iCodigoTipo;
 			iCodigoMotivo = objInfoGen.iCodigoMotivo;
-			memmove(cTipoServicio, objInfoGen.cTipoServicio, sizeof(1));
-			memmove(cFechaReclamo, objInfoGen.cFechaReclamo, sizeof(8));
-			memmove(cFechaInicio, objInfoGen.cFechaInicio, sizeof(8));
-			memmove(cFechaFinEstimada, objInfoGen.cFechaFinEstimada, sizeof(8));
-			memmove(cFechaFinReal, objInfoGen.cFechaFinReal, sizeof(8));
+			memmove(cTipoServicio, objInfoGen.cTipoServicio, sizeof(cTipoServicio));
+			memmove(cFechaReclamo, objInfoGen.cFechaReclamo, sizeof(cFechaReclamo));
+			memmove(cFechaInicio, objInfoGen.cFechaInicio, sizeof(cFechaInicio));
+			memmove(cFechaFinEstimada, objInfoGen.cFechaFinEstimada, sizeof(cFechaFinEstimada));
+			memmove(cFechaFinReal, objInfoGen.cFechaFinReal, sizeof(cFechaFinReal));
 			iPromotor = objInfoGen.iPromotor;
-			memmove(cFechaAlta, objInfoGen.cFechaAlta, sizeof(8));
+			memmove(cFechaAlta, objInfoGen.cFechaAlta, sizeof(cFechaAlta));
 			iCodigoTermino = objInfoGen.iCodigoTermino;
 			iMotivoretiro = objInfoGen.iMotivoretiro;
-			memmove(cTipoOperacion, objInfoGen.cTipoOperacion, sizeof(4));
-			memmove(cCurpAgenteServicio, objInfoGen.cCurpAgenteServicio, sizeof(18));
-			memmove(cCurpFuncionario, objInfoGen.cCurpFuncionario, sizeof(20));
-			memmove(cSelloVoluntad, objInfoGen.cSelloVoluntad, sizeof(14));
-			memmove(cSelloFuncionario, objInfoGen.cSelloFuncionario, sizeof(14));
+			memmove(cTipoOperacion, objInfoGen.cTipoOperacion, sizeof(cTipoOperacion));
+			memmove(cCurpAgenteServicio, objInfoGen.cCurpAgenteServicio, sizeof(cCurpAgenteServicio));
+			memmove(cCurpFuncionario, objInfoGen.cCurpFuncionario, sizeof(cCurpFuncionario));
+			memmove(cSelloVoluntad, objInfoGen.cSelloVoluntad, sizeof(cSelloVoluntad));
+			memmove(cSelloFuncionario, objInfoGen.cSelloFuncionario, sizeof(cSelloFuncionario));
 			iTipoGrupoServicio = objInfoGen.iTipoGrupoServicio;
 			iTipoSolicitante = objInfoGen.iTipoSolicitante;
 			iTipoIdentificador = objInfoGen.iTipoIdentificador;
 			iIdpago = objInfoGen.iIdpago;
-			memmove(cHoraFin, objInfoGen.cHoraFin, sizeof(8));
-			memmove(cSellotrabajador, objInfoGen.cSellotrabajador, sizeof(14));
+			memmove(cHoraFin, objInfoGen.cHoraFin, sizeof(cHoraFin));
+			memmove(cSellotrabajador, objInfoGen.cSellotrabajador, sizeof(cSellotrabajador));
 
 			memset(cTexto, 0, sizeof(cTexto));
 			snprintf(cTexto, sizeof(cTexto), "FOLIO QUE SE ESTA PROCESANDO -->[%i]",iFolioServicio);
@@ -486,9 +486,9 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 										iCodigo = 0;
 										memset(cRechazo, 0, sizeof(cRechazo));
 
-										memmove(cMarca, objMarca.cMarca_Res, sizeof(50));
+										memmove(cMarca, objMarca.cMarca_Res, sizeof(cMarca));
 										iCodigo = objMarca.iCod_Rechazo;
-										memmove(cRechazo, objMarca.cRechazo_Desc, sizeof(50));
+										memmove(cRechazo, objMarca.cRechazo_Desc, sizeof(cRechazo));
 
 										memset(cTexto, 0, sizeof(cTexto));
 										snprintf(cTexto, sizeof(cTexto), "Nss: [%s], FolioServicio: [%i], Marca: [%s], Codigo: [%i], Rechazo: [%s]",cNss, iFolioServicio, cMarca, iCodigo, cRechazo);
@@ -577,8 +577,8 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 												memset(cFechaMarca, 0, sizeof(cFechaMarca));
 												memset(cHoraMarca, 0, sizeof(cHoraMarca));
 
-												memmove(cFechaMarca, objInfoFechaHoraMarca.cFechaMarca, sizeof(10));
-												memmove(cHoraMarca, objInfoFechaHoraMarca.cHoraMarca, sizeof(8));
+												memmove(cFechaMarca, objInfoFechaHoraMarca.cFechaMarca, sizeof(cFechaMarca));
+												memmove(cHoraMarca, objInfoFechaHoraMarca.cHoraMarca, sizeof(cHoraMarca));
 
 												snprintf(cFechaActualizaMarca, sizeof(cFechaActualizaMarca), "MDY(%c%c,%c%c,%c%c%c%c)",
 												cFechaMarca[5],
@@ -739,7 +739,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 								/*************************************INICIA LA MIGRACION PARA RETMOTIVORETIRO*******************************************/
 								objFG.fnArcGrabarLogx(RUTA_LOG,"***********************************RETMOTIVORETIRO***************************************");
 
-								char 	cFechaReclamoRetiro[10]  = {0};
+								char 	cFechaReclamoRetiro[11]  = {0};
 
 								snprintf(cFechaReclamoRetiro, sizeof(cFechaReclamoRetiro), "%c%c%c%c-%c%c-%c%c",
 								cFechaReclamo[4],
@@ -753,7 +753,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 								);
 
 								memset(cSqlAux, 0, sizeof(cSqlAux));
-								snprintf(cSqlAux, sizeof(cTexto), "EXECUTE FUNCTION fn_guardarretmotivoretiroreplicart(%i,%i,'%s','%s','%s');",
+								snprintf(cSqlAux, sizeof(cSqlAux), "EXECUTE FUNCTION fn_guardarretmotivoretiroreplicart(%i,%i,'%s','%s','%s');",
 													iFolioServicio,
 													iMotivoretiro,
 													cTipoServicio,
@@ -799,7 +799,7 @@ short CRetirostotales::ReplicarSolicitudesRetirosTotales(C_ODBC* odbcAforeGlobal
 										if(objSolCurp.leer())
 										{
 											memset(cCurpBen, 0, sizeof(cCurpBen));
-											memmove(cCurpBen, objSolCurp.curpbenef, sizeof(18));
+											memmove(cCurpBen, objSolCurp.curpbenef, sizeof(cCurpBen));
 											//memcpy(stSelloBiometricoSuv.cCurpSolBene, cCurpBen, strlen(cCurpBen));
 											memmove(stSelloBiometricoSuv.cCurpSolicitante, cCurpBen, sizeof(cCurpBen));
 

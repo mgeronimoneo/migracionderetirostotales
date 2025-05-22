@@ -192,14 +192,14 @@ short CInfoRetirosTotalesImss::ReplicarRetirosTotalesImss(int iFolioServicio, C_
 			memset(cMaternosol, 0, sizeof(cMaternosol));
 			memset(cNombresol, 0, sizeof(cNombresol));
 
-			memmove(cNss, objRetTotImss.cNss, sizeof(11));
-			memmove(cTipoid, objRetTotImss.cTipoid, sizeof(1));
-			memmove(cCurp, objRetTotImss.cCurp, sizeof(18));
-			memmove(cSecpension, objRetTotImss.cSecpension, sizeof(2));
-			memmove(cTiporetiro, objRetTotImss.cTiporetiro, sizeof(1));
-			memmove(cRegimen, objRetTotImss.cRegimen, sizeof(2));
-			memmove(cTiposeguro, objRetTotImss.cTiposeguro, sizeof(2));
-			memmove(cTipopension, objRetTotImss.cTipopension, sizeof(2));
+			memmove(cNss, objRetTotImss.cNss, sizeof(cNss));
+			memmove(cTipoid, objRetTotImss.cTipoid, sizeof(cTipoid));
+			memmove(cCurp, objRetTotImss.cCurp, sizeof(cCurp));
+			memmove(cSecpension, objRetTotImss.cSecpension, sizeof(cSecpension));
+			memmove(cTiporetiro, objRetTotImss.cTiporetiro, sizeof(cTiporetiro));
+			memmove(cRegimen, objRetTotImss.cRegimen, sizeof(cRegimen));
+			memmove(cTiposeguro, objRetTotImss.cTiposeguro, sizeof(cTiposeguro));
+			memmove(cTipopension, objRetTotImss.cTipopension, sizeof(cTipopension));
 
 			// memcpy(cFechainipen, objRetTotImss.cFechainipen, 10);
 			snprintf(cFechainipen, sizeof(cFechainipen), "%c%c%c%c-%c%c-%c%c",
@@ -234,7 +234,7 @@ short CInfoRetirosTotalesImss::ReplicarRetirosTotalesImss(int iFolioServicio, C_
 					 objRetTotImss.cFechasolicitud[3],
 					 objRetTotImss.cFechasolicitud[4]);
 
-			memmove(cCvedocprobatorio, objRetTotImss.cCvedocprobatorio, sizeof(1));
+			memmove(cCvedocprobatorio, objRetTotImss.cCvedocprobatorio, sizeof(cCvedocprobatorio));
 			// memcpy(cFechanacimiento, objRetTotImss.cFechanacimiento, 10);
 			snprintf(cFechanacimiento, sizeof(cFechanacimiento), "%c%c%c%c-%c%c-%c%c",
 					 objRetTotImss.cFechanacimiento[6],
@@ -246,9 +246,9 @@ short CInfoRetirosTotalesImss::ReplicarRetirosTotalesImss(int iFolioServicio, C_
 					 objRetTotImss.cFechanacimiento[3],
 					 objRetTotImss.cFechanacimiento[4]);
 
-			memmove(cAseguradora, objRetTotImss.cAseguradora, sizeof(3));
-			memmove(cActuario, objRetTotImss.cActuario, sizeof(7));
-			memmove(cNumplanpension, objRetTotImss.cNumplanpension, sizeof(8));
+			memmove(cAseguradora, objRetTotImss.cAseguradora, sizeof(cAseguradora));
+			memmove(cActuario, objRetTotImss.cActuario, sizeof(cActuario));
+			memmove(cNumplanpension, objRetTotImss.cNumplanpension, sizeof(cNumplanpension));
 			// memcpy(cFechavalorviv, objRetTotImss.cFechavalorviv, 8);
 			snprintf(cFechavalorviv, sizeof(cFechavalorviv), "%c%c%c%c-%c%c-%c%c",
 					 objRetTotImss.cFechavalorviv[6],
@@ -260,8 +260,8 @@ short CInfoRetirosTotalesImss::ReplicarRetirosTotalesImss(int iFolioServicio, C_
 					 objRetTotImss.cFechavalorviv[3],
 					 objRetTotImss.cFechavalorviv[4]);
 
-			memmove(cDiagregistro, objRetTotImss.cDiagregistro, sizeof(3));
-			memmove(cEstadosubviv, objRetTotImss.cEstadosubviv, sizeof(1));
+			memmove(cDiagregistro, objRetTotImss.cDiagregistro, sizeof(cDiagregistro));
+			memmove(cEstadosubviv, objRetTotImss.cEstadosubviv, sizeof(cEstadosubviv));
 			// memcpy(cFechacaptura, objRetTotImss.cFechacaptura, 10);
 			snprintf(cFechacaptura, sizeof(cFechacaptura), "%c%c%c%c-%c%c-%c%c",
 					 objRetTotImss.cFechacaptura[6],
@@ -306,13 +306,13 @@ short CInfoRetirosTotalesImss::ReplicarRetirosTotalesImss(int iFolioServicio, C_
 					 objRetTotImss.cFechaenvio[3],
 					 objRetTotImss.cFechaenvio[4]);
 
-			memmove(cUsuariocaptura, objRetTotImss.cUsuariocaptura, sizeof(12));
-			memmove(cUsuarioconfirma, objRetTotImss.cUsuarioconfirma, sizeof(12));
-			memmove(cUsuariomodifica, objRetTotImss.cUsuariomodifica, sizeof(12));
-			memmove(cCvedestino, objRetTotImss.cCvedestino, sizeof(1));
-			memmove(cPaternosol, objRetTotImss.cPaternosol, sizeof(40));
-			memmove(cMaternosol, objRetTotImss.cMaternosol, sizeof(40));
-			memmove(cNombresol, objRetTotImss.cNombresol, sizeof(40));
+			memmove(cUsuariocaptura, objRetTotImss.cUsuariocaptura, sizeof(cUsuariocaptura));
+			memmove(cUsuarioconfirma, objRetTotImss.cUsuarioconfirma, sizeof(cUsuarioconfirma));
+			memmove(cUsuariomodifica, objRetTotImss.cUsuariomodifica, sizeof(cUsuariomodifica));
+			memmove(cCvedestino, objRetTotImss.cCvedestino, sizeof(cCvedestino));
+			memmove(cPaternosol, objRetTotImss.cPaternosol, sizeof(cPaternosol));
+			memmove(cMaternosol, objRetTotImss.cMaternosol, sizeof(cMaternosol));
+			memmove(cNombresol, objRetTotImss.cNombresol, sizeof(cNombresol));
 
 			if (objRetTotImss.iFoliosolicitud == 0)
 			{

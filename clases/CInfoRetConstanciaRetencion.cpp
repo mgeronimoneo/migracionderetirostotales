@@ -14,7 +14,7 @@ short CInfoRetConstanciaRetencion::ReplicarRetConstanciaRetencion(int iFolioServ
 {
 	CRetconstanciaretencion objRetencion(odbcServiciosAfore);
 
-	char cFechaAlta[10]             = {0};
+	char cFechaAlta[11]             = {0};
 	char cNss[13] 					= {0};
 	char cRfc[15] 					= {0};
 	char cCurp[20] 					= {0};
@@ -67,11 +67,11 @@ short CInfoRetConstanciaRetencion::ReplicarRetConstanciaRetencion(int iFolioServ
 			memset(cTipoRetiro, 0, sizeof(cTipoRetiro));
 
 			//memcpy(cFechaAlta, objRetencion.cFechaAlta, 10);
-			memmove(cNss, objRetencion.cNss, sizeof(11));
-			memmove(cRfc, objRetencion.cRfc, sizeof(13));
-			memmove(cCurp, objRetencion.cCurp, sizeof(18));
-			memmove(cNombreSolicitante, objRetencion.cNombreSolicitante, sizeof(100));
-			memmove(cTipoRetiro, objRetencion.cTipoRetiro, sizeof(1));
+			memmove(cNss, objRetencion.cNss, sizeof(cNss));
+			memmove(cRfc, objRetencion.cRfc, sizeof(cRfc));
+			memmove(cCurp, objRetencion.cCurp, sizeof(cCurp));
+			memmove(cNombreSolicitante, objRetencion.cNombreSolicitante, sizeof(cNombreSolicitante));
+			memmove(cTipoRetiro, objRetencion.cTipoRetiro, sizeof(cTipoRetiro));
 
 			if (objRetencion.iFolioSolicitud == 0)
 			{
