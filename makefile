@@ -2,7 +2,7 @@ PATH_LIB		=	/sysx/proyectos/afore/migracionretirostotales
 CC      		=	g++
 CFLAGS  		=	-Wall -W -o4 -fpack-struct=1 -fPIC -g -w
 INCLUDE		=	-I/usr/local/lib64 -I/usr/include -I/usr/local/include -I./ -I/sysx/proyectos/include -I./clases -I./clasessql
-LIBSC++ 	=	-lodbc /sysx/progs/afore/librerias/cfuncionesgenerales.so
+LIBSC++ 	=	-lodbc /sysx/progs/afore/librerias/cfuncionesgenerales.so /sysx/progs/afore/librerias/cutileriasafo.so
 OBJ_X64		=	/sysx/proyectos/include/x86_64
 
 all:

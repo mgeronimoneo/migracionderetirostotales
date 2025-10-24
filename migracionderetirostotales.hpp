@@ -3,7 +3,9 @@
 
 #include "definiciones.hpp"
 #include "../sisaforecoppel/funcionesgenerales/CFuncionesGenerales.hpp"
+#include "CUtileriasAfo.hpp"
 #include "clases/CRetirostotales.hpp"
+
 
 #include <stdio.h>
 #include <stdlib.h>

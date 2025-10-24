@@ -44,7 +44,7 @@ int main(int __argc, char *__argv[])
 
 short obtenerConexionBaseDato()
 {
-	FILE *fichero;
+	// FILE *fichero;
 	char nombre[100] = "/sysx/progs/afore/ipadmonafore.dat";
 	char cLinea[42] = {0};
 	char cIpAux[42] = {0};
@@ -54,25 +54,19 @@ short obtenerConexionBaseDato()
 	memset(cIp1, 0, sizeof(cIp1));
 	memset(cIp2, 0, sizeof(cIp2));
 
-	fichero = fopen(nombre, "r");
+	short shRet = DEFAULT__;
+	char cBuff[40] = {0};
+	char cOutTexto[1024];
+	memset(cOutTexto, 0, sizeof(cOutTexto));
+	shRet = CUtileriasAfo::leerArchivoCnf((char *)nombre, cBuff, 33, cOutTexto);
+	memmove(cIp1, cBuff, 20);
+	memmove(cIp2, &cBuff[21], 20);
 
-	if (fichero)
+	if (shRet != OK__)
 	{
-		memset(cLinea, 0, sizeof(cLinea));
-		memset(cIpAux, 0, sizeof(cIpAux));
-
-		strncpy(cIpAux, fgets(cLinea, 40, fichero), sizeof(cIpAux) - 1); // LEO HASTA LA COLUMNA 34
-		cIpAux[sizeof(cIpAux) - 1] = '\0';
-
-		strncpy(cIp1, fns.fnCadSubstring(0, 20, cIpAux), sizeof(cIp1) - 1); // LEO LOS PRIMEROS 20 CARACTERES DEL ARCHIVO (IP 1)
-		cIp1[sizeof(cIp1) - 1] = '\0';
-
-		strncpy(cIp2, fns.fnCadSubstring(21, 20, cIpAux), sizeof(cIp2) - 1); // LEO LOS SIGUIENTES 20 CARACTERES DEL ARCHIVO (IP 2)
-		cIp2[sizeof(cIp2) - 1] = '\0';
+		snprintf(cTexto, sizeof(cTexto), "[CGeneral::leerIpAfore] Error al abrir archivo.[%i %s]", errno, strerror(errno));
+		fns.fnArcGrabarLogx(RUTA_LOG, cTexto);
 	}
-
-	snprintf(cIp1, sizeof(cIp1), "%s", fns.fnCadTrim(cIp1));
-	snprintf(cIp2, sizeof(cIp2), "%s", fns.fnCadTrim(cIp2));
 
 	if (strnlen(cIp1, sizeof(cIp1)) > 0 || strnlen(cIp2, sizeof(cIp2)) > 0)
 	{
