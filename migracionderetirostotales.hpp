@@ -6,27 +6,26 @@
 #include "CUtileriasAfo.hpp"
 #include "clases/CRetirostotales.hpp"
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>	//Para Redondear Cantidades
+#include <math.h> //Para Redondear Cantidades
 
 short shRet;
 
-C_ODBC	odbcAdmonAfo;
-C_ODBC	odbcServiciosAfore;
-C_ODBC	odbcAforeGlobal;
-C_ODBC	odbcInfxSafreaf;
+C_ODBC odbcAdmonAfo;
+C_ODBC odbcServiciosAfore;
+C_ODBC odbcAforeGlobal;
+C_ODBC odbcInfxSafreaf;
 
-char 	cIp[30], cIpIfx[40], cSql[2024], cIp1[30], cIp2[30], cTexto[1024];
-char    cIpAdmonAfore[30];
-char    cIpAforeGlobal[30];
-char    cOutTexto[102];
-int		iTipoReplica = 0;
-int		arrOpciones[TOTAL_OPCIONES];
+char cIp[30], cIpIfx[40], cSql[2024], cIp1[30], cIp2[30], cTexto[1024];
+char cIpAdmonAfore[30];
+char cIpAforeGlobal[30];
+char cOutTexto[102];
+int iTipoReplica = 0;
+int arrOpciones[TOTAL_OPCIONES];
 
-CRetirostotales	objRes;
+CRetirostotales objRes;
 CFuncionesGenerales fns;
 
 short obtenerConexionBaseDato();
