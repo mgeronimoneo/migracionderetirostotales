@@ -14,8 +14,10 @@ void CInfoRetirosTotalesIssste::setStSelloBiometricoSuv(ST_SELLOBIOMETRICO_SUV *
 	char cTexto[5000] = {0};
 	stSelloBiometricoSuv = stSuv;
 	// memcpy(stSelloBiometricoSuv,stSuv,sizeof(stSuv));
-	snprintf(cTexto, sizeof(cTexto), "[%s][%s] stSelloBiometricoSuv: cNss[%s] iIdsolicitante[%i] cCurpSolicitante[%s] cSellotrabajador[%s] cCurpAgente[%s] iConsecutivo[%i]", __FILE__, __FUNCTION__, stSelloBiometricoSuv->cNss, stSelloBiometricoSuv->iIdsolicitante, stSelloBiometricoSuv->cCurpSolicitante, stSelloBiometricoSuv->cSellotrabajador, stSelloBiometricoSuv->cCurpAgente, stSelloBiometricoSuv->iConsecutivo);
-	objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+	if (snprintf(cTexto, sizeof(cTexto), "[%s][%s] stSelloBiometricoSuv: cNss[%s] iIdsolicitante[%i] cCurpSolicitante[%s] cSellotrabajador[%s] cCurpAgente[%s] iConsecutivo[%i]", __FILE__, __FUNCTION__, stSelloBiometricoSuv->cNss, stSelloBiometricoSuv->iIdsolicitante, stSelloBiometricoSuv->cCurpSolicitante, stSelloBiometricoSuv->cSellotrabajador, stSelloBiometricoSuv->cCurpAgente, stSelloBiometricoSuv->iConsecutivo))
+	{
+		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+	}
 } // Termina CInfoRetirosTotalesIssste::setStSelloBiometricoSuv(ST_SELLOBIOMETRICO_SUV *stSuv)
 
 void CInfoRetirosTotalesIssste::saveSelloBiometricoSuv(C_ODBC *odbcInfxSafreaf)
@@ -26,27 +28,31 @@ void CInfoRetirosTotalesIssste::saveSelloBiometricoSuv(C_ODBC *odbcInfxSafreaf)
 	char cAux[5000] = {0};
 	int shRespuesta = 0;
 
-	memset(cSql, 0, sizeof(cSql));
 	memset(cTexto, 0, sizeof(cTexto));
 
 	snprintf(cSql, sizeof(cSql), "EXECUTE FUNCTION fn_guardar_sellosuvtrabajador(2,'%s',%i,'%i','%s','%s','%s',0);",
 			 stSelloBiometricoSuv->cNss, stSelloBiometricoSuv->iConsecutivo, stSelloBiometricoSuv->iIdsolicitante, stSelloBiometricoSuv->cCurpSolicitante,
 			 stSelloBiometricoSuv->cSellotrabajador, stSelloBiometricoSuv->cCurpAgente); //,stSelloBiometricoSuv->cCurpSolBene);
 
-	snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSql);
-	objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
-
+	if (snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSql))
+	{
+		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+	}
 	objFG.fnSqlConsultarNumero(odbcInfxSafreaf, cSql, shRespuesta, cAux);
 
 	if (shRespuesta == 1)
 	{
-		snprintf(cTexto, sizeof(cTexto), "SE MIGRO LA INFORMACION CON EL CONSECUTIVO: [%i]", stSelloBiometricoSuv->iConsecutivo);
-		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+		if (snprintf(cTexto, sizeof(cTexto), "SE MIGRO LA INFORMACION CON EL CONSECUTIVO: [%i]", stSelloBiometricoSuv->iConsecutivo))
+		{
+			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+		}
 	}
 	else
 	{
-		snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION CON EL CONSECUTIVO: [%i]", stSelloBiometricoSuv->iConsecutivo);
-		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+		if (snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION CON EL CONSECUTIVO: [%i]", stSelloBiometricoSuv->iConsecutivo))
+		{
+			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+		}
 	}
 } /// Termina CInfoRetirosTotalesIssste::saveSelloBiometricoSuv()
 
@@ -66,20 +72,20 @@ short CInfoRetirosTotalesIssste::ReplicarRetirosTotalesIssste(int iFolioServicio
 	char cTiposeguro[4] = {0};
 	char cTipopension[4] = {0};
 	char cCvepension[5] = {0};
-	char cFechainiciopension[12] = {0};
-	char cFecharesolucion[12] = {0};
-	char cFechasolicitud[12] = {0};
+	char cFechainiciopension[24] = {0};
+	char cFecharesolucion[24] = {0};
+	char cFechasolicitud[24] = {0};
 	char cClavedocumentoprobatorio[3] = {0};
-	char cFechanacimiento[12] = {0};
+	char cFechanacimiento[24] = {0};
 	char cAseguradora[5] = {0};
 	char cActuario[9] = {0};
 	char cNumplanprivado[10] = {0};
 	char cDiagprocesar[5] = {0};
-	char cFechacaptura[12] = {0};
+	char cFechacaptura[24] = {0};
 	char cUsuariocaptura[17] = {0};
-	char cFechamodifica[12] = {0};
+	char cFechamodifica[24] = {0};
 	char cUsuariomodifica[17] = {0};
-	char cFechaconfirma[12] = {0};
+	char cFechaconfirma[24] = {0};
 	char cUsuarioconfirma[17] = {0};
 
 	char cSql[5000] = {0};
@@ -89,14 +95,13 @@ short CInfoRetirosTotalesIssste::ReplicarRetirosTotalesIssste(int iFolioServicio
 	int iRespuesta = 0;
 
 	objFG.fnArcGrabarLogx(RUTA_LOG, "***********************************ENTRA RETIROS TOTALES ISSSTE***************************************");
-	memset(cTexto, 0, sizeof(cTexto));
-	snprintf(cTexto, sizeof(cTexto), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio);
-	objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+	if (snprintf(cTexto, sizeof(cTexto), "FOLIO QUE SE ESTA MIGRANDO: [%i]", iFolioServicio))
+	{
+		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+	}
 
 	// OBTENCIÓN DE LA INFORMACION QUE SE VA A MIGRAR DE RETIROS TOTALES ISSSTE
-	memset(cSql, 0, sizeof(cSql));
 	memset(cTexto, 0, sizeof(cTexto));
-
 	snprintf(cSql, sizeof(cSql), "SELECT COALESCE(folio,0) AS folio, "
 								 "COALESCE(consecutivo,0) AS consecutivo, "
 								 "TRIM(COALESCE(curp,' '))::char(18) AS curp, "
@@ -134,9 +139,10 @@ short CInfoRetirosTotalesIssste::ReplicarRetirosTotalesIssste(int iFolioServicio
 								 "TRIM(COALESCE(fechaconfirma,' '))::char(10) AS fechaconfirma, "
 								 "TRIM(COALESCE(usuarioconfirma,' '))::char(15) AS usuarioconfirma, "
 								 "COALESCE(codigo_rechazo,0) AS codigo_rechazo, "
-								 "COALESCE(estado_solicitud,0) AS estado_solicitud "
+								 "COALESCE(estado_solicitud,0) AS estado_solicitud, "
 								 //"COALESCE(migracionrettolsafre,0) AS migracionrettolsafre "
-								 "FROM fnconsultaretirostotalesissstereplica(%i);",
+								 "COALESCE(portabilidad,1) AS portabilidad "
+								 "FROM fnconsultaretirostotalesissstereplicaportabilidad(%i);",
 			 iFolioServicio);
 
 	objRetTotIssste.ClearResults();
@@ -173,18 +179,30 @@ short CInfoRetirosTotalesIssste::ReplicarRetirosTotalesIssste(int iFolioServicio
 			memset(cFechaconfirma, 0, sizeof(cFechaconfirma));
 			memset(cUsuarioconfirma, 0, sizeof(cUsuarioconfirma));
 
-			memmove(cCurp, objRetTotIssste.cCurp, sizeof(cCurp));
-			memmove(cRfc, objRetTotIssste.cRfc, sizeof(cRfc));
-			memmove(cNss, objRetTotIssste.cNss, sizeof(cNss));
-			memmove(cNombreafore, objRetTotIssste.cNombreafore, sizeof(cNombreafore));
-			memmove(cPaterno_afore, objRetTotIssste.cPaterno_afore, sizeof(cPaterno_afore));
-			memmove(cMaterno_afore, objRetTotIssste.cMaterno_afore, sizeof(cMaterno_afore));
-			memmove(cSecpension, objRetTotIssste.cSecpension, sizeof(cSecpension));
-			memmove(cTiporetiro, objRetTotIssste.cTiporetiro, sizeof(cTiporetiro));
-			memmove(cRegimen, objRetTotIssste.cRegimen, sizeof(cRegimen));
-			memmove(cTiposeguro, objRetTotIssste.cTiposeguro, sizeof(cTiposeguro));
-			memmove(cTipopension, objRetTotIssste.cTipopension, sizeof(cTipopension));
-			memmove(cCvepension, objRetTotIssste.cCvepension, sizeof(cCvepension));
+			strncpy(cCurp, objRetTotIssste.cCurp, 18);
+			cCurp[18] = '\0';
+			strncpy(cRfc, objRetTotIssste.cRfc, 13);
+			cRfc[13] = '\0';
+			strncpy(cNss, objRetTotIssste.cNss, 11);
+			cNss[11] = '\0';
+			strncpy(cNombreafore, objRetTotIssste.cNombreafore, 40);
+			cNombreafore[40] = '\0';
+			strncpy(cPaterno_afore, objRetTotIssste.cPaterno_afore, 40);
+			cPaterno_afore[40] = '\0';
+			strncpy(cMaterno_afore, objRetTotIssste.cMaterno_afore, 40);
+			cMaterno_afore[40] = '\0';
+			strncpy(cSecpension, objRetTotIssste.cSecpension, 2);
+			cSecpension[2] = '\0';
+			strncpy(cTiporetiro, objRetTotIssste.cTiporetiro, 1);
+			cTiporetiro[1] = '\0';
+			strncpy(cRegimen, objRetTotIssste.cRegimen, 2);
+			cRegimen[2] = '\0';
+			strncpy(cTiposeguro, objRetTotIssste.cTiposeguro, 2);
+			cTiposeguro[2] = '\0';
+			strncpy(cTipopension, objRetTotIssste.cTipopension, 2);
+			cTipopension[2] = '\0';
+			strncpy(cCvepension, objRetTotIssste.cCvepension, 3);
+			cCvepension[3] = '\0';
 
 			// memcpy(cFechainiciopension, objRetTotIssste.cFechainiciopension, 10);
 			snprintf(cFechainiciopension, sizeof(cFechainiciopension), "%c%c%c%c-%c%c-%c%c",
@@ -219,7 +237,9 @@ short CInfoRetirosTotalesIssste::ReplicarRetirosTotalesIssste(int iFolioServicio
 					 objRetTotIssste.cFechasolicitud[3],
 					 objRetTotIssste.cFechasolicitud[4]);
 
-			memmove(cClavedocumentoprobatorio, objRetTotIssste.cClavedocumentoprobatorio, sizeof(cClavedocumentoprobatorio));
+			strncpy(cClavedocumentoprobatorio, objRetTotIssste.cClavedocumentoprobatorio, 1);
+			cClavedocumentoprobatorio[1] = '\0';
+
 			// memcpy(cFechanacimiento, objRetTotIssste.cFechanacimiento, 10);
 			snprintf(cFechanacimiento, sizeof(cFechanacimiento), "%c%c%c%c-%c%c-%c%c",
 					 objRetTotIssste.cFechanacimiento[6],
@@ -231,10 +251,14 @@ short CInfoRetirosTotalesIssste::ReplicarRetirosTotalesIssste(int iFolioServicio
 					 objRetTotIssste.cFechanacimiento[3],
 					 objRetTotIssste.cFechanacimiento[4]);
 
-			memmove(cAseguradora, objRetTotIssste.cAseguradora, sizeof(cAseguradora));
-			memmove(cActuario, objRetTotIssste.cActuario, sizeof(cActuario));
-			memmove(cNumplanprivado, objRetTotIssste.cNumplanprivado, sizeof(cNumplanprivado));
-			memmove(cDiagprocesar, objRetTotIssste.cDiagprocesar, sizeof(cDiagprocesar));
+			strncpy(cAseguradora, objRetTotIssste.cAseguradora, 3);
+			cAseguradora[3] = '\0';
+			strncpy(cActuario, objRetTotIssste.cActuario, 7);
+			cActuario[7] = '\0';
+			strncpy(cNumplanprivado, objRetTotIssste.cNumplanprivado, 8);
+			cNumplanprivado[8] = '\0';
+			strncpy(cDiagprocesar, objRetTotIssste.cDiagprocesar, 3);
+			cDiagprocesar[3] = '\0';
 
 			// memcpy(cFechacaptura, objRetTotIssste.cFechacaptura, 10);
 			snprintf(cFechacaptura, sizeof(cFechacaptura), "%c%c%c%c-%c%c-%c%c",
@@ -247,7 +271,8 @@ short CInfoRetirosTotalesIssste::ReplicarRetirosTotalesIssste(int iFolioServicio
 					 objRetTotIssste.cFechacaptura[3],
 					 objRetTotIssste.cFechacaptura[4]);
 
-			memmove(cUsuariocaptura, objRetTotIssste.cUsuariocaptura, sizeof(cUsuariocaptura));
+			strncpy(cUsuariocaptura, objRetTotIssste.cUsuariocaptura, 15);
+			cUsuariocaptura[15] = '\0';
 
 			// memcpy(cFechamodifica, objRetTotIssste.cFechamodifica, 10);
 			snprintf(cFechamodifica, sizeof(cFechamodifica), "%c%c%c%c-%c%c-%c%c",
@@ -260,7 +285,8 @@ short CInfoRetirosTotalesIssste::ReplicarRetirosTotalesIssste(int iFolioServicio
 					 objRetTotIssste.cFechamodifica[3],
 					 objRetTotIssste.cFechamodifica[4]);
 
-			memmove(cUsuariomodifica, objRetTotIssste.cUsuariomodifica, sizeof(cUsuariomodifica));
+			strncpy(cUsuariomodifica, objRetTotIssste.cUsuariomodifica, 15);
+			cUsuariomodifica[15] = '\0';
 
 			// memcpy(cFechaconfirma, objRetTotIssste.cFechaconfirma, 10);
 			snprintf(cFechaconfirma, sizeof(cFechaconfirma), "%c%c%c%c-%c%c-%c%c",
@@ -273,24 +299,24 @@ short CInfoRetirosTotalesIssste::ReplicarRetirosTotalesIssste(int iFolioServicio
 					 objRetTotIssste.cFechaconfirma[3],
 					 objRetTotIssste.cFechaconfirma[4]);
 
-			memmove(cUsuarioconfirma, objRetTotIssste.cUsuarioconfirma, sizeof(cUsuarioconfirma));
+			strncpy(cUsuarioconfirma, objRetTotIssste.cUsuarioconfirma, 15);
+			cUsuarioconfirma[15] = '\0';
 
 			if (objRetTotIssste.iFoliosolicitud == 0)
 			{
-				memset(cTexto, 0, sizeof(cTexto));
-				snprintf(cTexto, sizeof(cTexto), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
-				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+				if (snprintf(cTexto, sizeof(cTexto), "NO EXISTE INFORMACION CON EL FOLIO: [%i]", iFolioServicio))
+				{
+					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+				}
 				objFG.fnArcGrabarLogx(RUTA_LOG, "**************************************************************************");
 			}
 			else
 			{
-
-				memset(cSqlAux, 0, sizeof(cSqlAux));
 				memset(cTexto, 0, sizeof(cTexto));
 
 				if (objRetTotIssste.iGrupo != 0)
 				{
-					snprintf(cSqlAux, sizeof(cSqlAux), "EXECUTE FUNCTION fn_guardarretirostotalesissstereplica(%i,%ld,'%s','%s','%s',%i,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%i,'%s','%s','%s','%s','%s','%s','%s','%s',%i,%i,%i,%i,'%s',%i,'%s','%s','%s','%s','%s','%s',%i,%i);",
+					snprintf(cSqlAux, sizeof(cSqlAux), "EXECUTE FUNCTION fn_guardarretirostotalesissstereplicaportabilidad(%i,%ld,'%s','%s','%s',%i,'%s','%s','%s','%s','%s','%s','%s','%s','%s',%i,'%s','%s','%s','%s','%s','%s','%s','%s',%i,%i,%i,%i,'%s',%i,'%s','%s','%s','%s','%s','%s',%i,%i,%i);",
 							 objRetTotIssste.iFolio,
 							 objRetTotIssste.lConsecutivo,
 							 cCurp,
@@ -328,36 +354,43 @@ short CInfoRetirosTotalesIssste::ReplicarRetirosTotalesIssste(int iFolioServicio
 							 cFechaconfirma,
 							 cUsuarioconfirma,
 							 objRetTotIssste.iCodigo_rechazo,
-							 objRetTotIssste.iEstado_solicitud);
+							 objRetTotIssste.iEstado_solicitud,
+							 objRetTotIssste.iPortabilidad);
 
 					objFG.fnSqlConsultarNumero(odbcInfxSafreaf, cSqlAux, iRespuesta, cTexto);
+					objFG.fnArcGrabarLogx(RUTA_LOG, cSqlAux);
 
 					if (iRespuesta == 1)
 					{
-						memset(cTexto, 0, sizeof(cTexto));
-						snprintf(cTexto, sizeof(cTexto), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
-						objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+						if (snprintf(cTexto, sizeof(cTexto), "SE MIGRO LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio))
+						{
+							objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+						}
 						// saveSelloBiometricoSuv(odbcInfxSafreaf);
 						objFG.fnArcGrabarLogx(RUTA_LOG, "**************************************************************************");
 					}
 					else
 					{
-						memset(cTexto, 0, sizeof(cTexto));
-						snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio);
-						objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+						if (snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i]", iFolioServicio))
+						{
+							objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+						}
+						if (snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSqlAux))
+						{
 
-						memset(cTexto, 0, sizeof(cTexto));
-						snprintf(cTexto, sizeof(cTexto), "QUERY: [%s]", cSqlAux);
+							objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+						}
 
-						objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
 						objFG.fnArcGrabarLogx(RUTA_LOG, "**************************************************************************");
 					}
 				}
 				else
 				{
-					memset(cTexto, 0, sizeof(cTexto));
-					snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i] POR QUE NO PERTENECE A UN GRUPO VALIDO", iFolioServicio);
-					objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+					if (snprintf(cTexto, sizeof(cTexto), "NO SE PUDO MIGRAR LA INFORMACION CON EL FOLIO: [%i] POR QUE NO PERTENECE A UN GRUPO VALIDO", iFolioServicio))
+					{
+						objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+					}
+
 					objFG.fnArcGrabarLogx(RUTA_LOG, "**************************************************************************");
 				}
 			}
@@ -365,14 +398,18 @@ short CInfoRetirosTotalesIssste::ReplicarRetirosTotalesIssste(int iFolioServicio
 		else
 		{
 			memset(cTexto, 0, sizeof(cTexto));
-			snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__, __FUNCTION__, cSql, errno, strerror(errno));
-			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+			if (snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al leer la informacion que arroja el query: %s %i %s", __FILE__, __FUNCTION__, cSql, errno, strerror(errno)))
+			{
+				objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+			}
 		}
 	}
 	else
 	{
 		memset(cTexto, 0, sizeof(cTexto));
-		snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__, __FUNCTION__, cSql, errno, strerror(errno));
-		objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+		if (snprintf(cTexto, sizeof(cTexto), "[%s][%s] Error al Ejecutar el Query: %s %i %s", __FILE__, __FUNCTION__, cSql, errno, strerror(errno)))
+		{
+			objFG.fnArcGrabarLogx(RUTA_LOG, cTexto);
+		}
 	}
 }
