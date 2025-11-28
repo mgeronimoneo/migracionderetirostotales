@@ -12,11 +12,11 @@ public:
     C_ODBC *odbc;
     int odbcRet;
     int nCols;
-    int nSqlTipo[40];
-    int nCTipo[40];
-    long nLongitud[40];
-    long nLongResp[40];
-    void *pVar[40];
+    int nSqlTipo[39];
+    int nCTipo[39];
+    long nLongitud[39];
+    long nLongResp[39];
+    void *pVar[39];
 
 	int			iFolio;
 	long		lConsecutivo;
@@ -56,6 +56,7 @@ public:
 	char		cUsuarioconfirma[17];
 	short int	iCodigo_rechazo;
 	short int	iEstado_solicitud;
-	short int	iMigracionrettotsafre;
+	//short int	iMigracionrettotsafre;
+	short int 	iPortabilidad;
 };
 #endif

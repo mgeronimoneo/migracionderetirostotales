@@ -71,5 +71,6 @@ public:
 	char		cMaternosol[42];
 	char		cNombresol[42];
 	short int	iEstatusreplica;
+	short int 	iPortabilidad;
 };
 #endif

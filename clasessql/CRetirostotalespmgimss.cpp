@@ -2,7 +2,7 @@
 CRetirostotalespmgimss::CRetirostotalespmgimss(C_ODBC *odbc_ext, const char *select) : CRecordSet(odbc_ext)
 {
     odbc = odbc_ext;
-    nCols=57;
+    nCols=58;
     odbcRet=TRUE;
 
     nSqlTipo[0] = 	SQL_CHAR;
@@ -62,6 +62,7 @@ CRetirostotalespmgimss::CRetirostotalespmgimss(C_ODBC *odbc_ext, const char *sel
 	nSqlTipo[54] = SQL_DOUBLE;
 	nSqlTipo[55] = SQL_DOUBLE;
 	nSqlTipo[56] = SQL_INTEGER;
+	nSqlTipo[57] = SQL_SMALLINT;
 	
 	nCTipo[0] =  SQL_C_CHAR;
 	nCTipo[1] =  SQL_C_SLONG;
@@ -120,6 +121,7 @@ CRetirostotalespmgimss::CRetirostotalespmgimss(C_ODBC *odbc_ext, const char *sel
 	nCTipo[54] =  SQL_C_DOUBLE;
 	nCTipo[55] =  SQL_C_DOUBLE;
 	nCTipo[56] =  SQL_C_SLONG;
+	nCTipo[57] =  SQL_C_SSHORT;
 
     nLongitud[0] =	13;
     nLongitud[1] =  5;
@@ -178,6 +180,7 @@ CRetirostotalespmgimss::CRetirostotalespmgimss(C_ODBC *odbc_ext, const char *sel
 	nLongitud[54] = 9;
 	nLongitud[55] = 9;
 	nLongitud[56] = 5;
+	nLongitud[57] = 3;
 
 
 	pVar[0] =	cNss;
@@ -237,6 +240,7 @@ CRetirostotalespmgimss::CRetirostotalespmgimss(C_ODBC *odbc_ext, const char *sel
 	pVar[54] = 	&dPagoretroactivopesos;
 	pVar[55] = 	&dDevengadaspesos;
 	pVar[56] = 	&iTipocontrato;
+	pVar[57] =  &iPortabilidad;
 	
     if (select != NULL)
     {

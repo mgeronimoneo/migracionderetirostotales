@@ -76,5 +76,6 @@ public:
 	double		dPagoretroactivopesos;
 	double		dDevengadaspesos;
 	int			iTipocontrato;
+	short int 	iPortabilidad;
 };
 #endif

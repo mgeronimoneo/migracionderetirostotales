@@ -2,7 +2,7 @@
 CRetirostotalesimss::CRetirostotalesimss(C_ODBC *odbc_ext, const char *select) : CRecordSet(odbc_ext)
 {
     odbc = odbc_ext;
-    nCols=53;
+    nCols=54;
     odbcRet=TRUE;
 
     nSqlTipo[0] = 	SQL_CHAR;
@@ -58,6 +58,7 @@ CRetirostotalesimss::CRetirostotalesimss(C_ODBC *odbc_ext, const char *select) :
 	nSqlTipo[50] = 	SQL_CHAR;
 	nSqlTipo[51] = 	SQL_CHAR;
 	nSqlTipo[52] = 	SQL_SMALLINT;
+	nSqlTipo[53] =  SQL_SMALLINT;
 
 	nCTipo[0] = 	SQL_C_CHAR;
 	nCTipo[1] = 	SQL_C_SBIGINT;
@@ -112,6 +113,7 @@ CRetirostotalesimss::CRetirostotalesimss(C_ODBC *odbc_ext, const char *select) :
 	nCTipo[50] = 	SQL_C_CHAR;
 	nCTipo[51] = 	SQL_C_CHAR;
 	nCTipo[52] = 	SQL_C_SSHORT;
+	nCTipo[53] = 	SQL_C_SSHORT;
 
     nLongitud[0] =	13;
     nLongitud[1] =  9;
@@ -166,6 +168,7 @@ CRetirostotalesimss::CRetirostotalesimss(C_ODBC *odbc_ext, const char *select) :
 	nLongitud[50] = 42;
 	nLongitud[51] = 42;
 	nLongitud[52] = 3;
+	nLongitud[53] = 3;
 
 	pVar[0] = cNss;
 	pVar[1] = &iConsecutivo;
@@ -220,6 +223,7 @@ CRetirostotalesimss::CRetirostotalesimss(C_ODBC *odbc_ext, const char *select) :
 	pVar[50] = cMaternosol;
 	pVar[51] = cNombresol;
 	pVar[52] = &iEstatusreplica;
+	pVar[53] = &iPortabilidad;
 
     if (select != NULL)
     {

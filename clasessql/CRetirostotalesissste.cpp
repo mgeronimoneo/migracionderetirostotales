@@ -44,6 +44,7 @@ CRetirostotalesissste::CRetirostotalesissste(C_ODBC *odbc_ext, const char *selec
 	nSqlTipo[36] = 	SQL_SMALLINT;
 	nSqlTipo[37] = 	SQL_SMALLINT;
 	nSqlTipo[38] = 	SQL_SMALLINT;
+	//nSqlTipo[39] =  SQL_SMALLINT;
 
 	nCTipo[0] = 	SQL_C_SLONG;
 	nCTipo[1] = 	SQL_C_SBIGINT;
@@ -84,6 +85,7 @@ CRetirostotalesissste::CRetirostotalesissste(C_ODBC *odbc_ext, const char *selec
 	nCTipo[36] = 	SQL_C_SSHORT;
 	nCTipo[37] = 	SQL_C_SSHORT;
 	nCTipo[38] = 	SQL_C_SSHORT;
+	//nCTipo[39] =    SQL_C_SSHORT;
 
     nLongitud[0] =   5;
     nLongitud[1] =   9;
@@ -124,6 +126,7 @@ CRetirostotalesissste::CRetirostotalesissste(C_ODBC *odbc_ext, const char *selec
 	nLongitud[36] =  3;
 	nLongitud[37] =  3;
 	nLongitud[38] =  3;
+	//nLongitud[39] =  3;
 
 	pVar[0] = 	&iFolio;
 	pVar[1] = 	&lConsecutivo;
@@ -163,7 +166,8 @@ CRetirostotalesissste::CRetirostotalesissste(C_ODBC *odbc_ext, const char *selec
 	pVar[35] = 	cUsuarioconfirma;
 	pVar[36] = 	&iCodigo_rechazo;
 	pVar[37] = 	&iEstado_solicitud;
-	pVar[38] = 	&iMigracionrettotsafre;
+	//pVar[38] = 	&iMigracionrettotsafre;
+	pVar[38] =  &iPortabilidad;
 
     if (select != NULL)
     {
